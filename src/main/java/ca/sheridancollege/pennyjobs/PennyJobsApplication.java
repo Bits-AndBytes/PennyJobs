@@ -1,4 +1,4 @@
-package com.example.demo;
+package ca.sheridancollege.pennyjobs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,8 +8,6 @@ public class PennyJobsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PennyJobsApplication.class, args);
-		
-		//test
 	}
 
 }
