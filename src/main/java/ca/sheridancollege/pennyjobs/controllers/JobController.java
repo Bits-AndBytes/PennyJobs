@@ -11,4 +11,23 @@ public class JobController {
 		return "WelcomePage.html";
 	}
 	
+	@GetMapping("/login")
+	public String loadLoginPage() {
+		return "";
+	}
+	
+	@GetMapping("/signup")
+	public String loadSignupPage() {
+		return "";
+	}
+	
+	@GetMapping("jobposting")
+	public String loadJobPosting() {
+		return "JobForm.html";
+	}
+	
+	@GetMapping("joblist")
+	public String loadJobList() {
+		return "";
+	}
 }
