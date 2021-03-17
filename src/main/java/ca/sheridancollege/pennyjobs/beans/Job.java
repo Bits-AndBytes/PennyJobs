@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import lombok.*;
@@ -18,15 +19,17 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Integer jobId;
 	
-	private String name;
-	private String street;
-	private String city;
-	private String postalCode;
-	private String province;
+	private String title;
+	private Address address;
 	private String description;
 	private String underage;
+	
+	@ManyToOne
+	private Integer posterId;
+	@ManyToOne
+	private Integer studentId;
 	
 	@Transient
 	private String[] underageOptions = {"Yes", "No"};
