@@ -23,30 +23,30 @@ public class JobController {
 	
 	@GetMapping("/login")
 	public String loadLoginPage() {
-		return "";
+		return "login.html";
 	}
 	
 	@GetMapping("/signup")
 	public String loadSignupPage() {
-		return "";
+		return "signup.html";
 	}
 	
-	@GetMapping("jobpost")
+	@GetMapping("/jobpost")
 	public String loadAddJob(Model model, @ModelAttribute Job job) {
 		model.addAttribute("job", new Job());
 		return "JobForm.html";
 	}
 	
-	@PostMapping("jobpost")
+	@PostMapping("/jobpost")
 	public String addJob(Model model, @ModelAttribute Job job) {
 		jRepo.save(job);
 		model.addAttribute("job", new Job());
 		model.addAttribute("jobs", jRepo.findAll());
-		return "JobList.html";
+		return "JobForm.html";
 	}
 	
-	@GetMapping("joblist")
+	@GetMapping("/joblist")
 	public String loadJobList() {
-		return "";
+		return "JobList.html";
 	}
 }
