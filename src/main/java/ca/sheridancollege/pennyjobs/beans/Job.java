@@ -30,7 +30,7 @@ public class Job {
 	private String description;
 	
 	private String underage;
-	
+
 	@ManyToOne
 	private JobPoster jobPoster;
 	

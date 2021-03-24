@@ -27,7 +27,6 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 		.anyRequest().authenticated()
 		.and();
 	}
-	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
 		
