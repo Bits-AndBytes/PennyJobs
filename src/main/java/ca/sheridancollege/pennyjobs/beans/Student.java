@@ -16,11 +16,14 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class Student extends Account{
+public class Student {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@OneToOne
+	private Account account;
 	
 	@OneToOne
 	private Parent parent;

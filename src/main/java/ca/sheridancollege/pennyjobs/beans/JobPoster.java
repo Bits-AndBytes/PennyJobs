@@ -16,9 +16,12 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class JobPoster extends Account{
+public class JobPoster {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@OneToOne
+	private Account account;
 }
