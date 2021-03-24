@@ -1,5 +1,6 @@
 package ca.sheridancollege.pennyjobs.beans;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,17 +20,22 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer jobId;
+	private Integer id;
 	
 	private String title;
+	
+	@Embedded
 	private Address address;
+	
 	private String description;
+	
 	private String underage;
 	
 	@ManyToOne
-	private Integer posterId;
+	private JobPoster jobPoster;
+	
 	@ManyToOne
-	private Integer studentId;
+	private Student student;
 	
 	@Transient
 	private String[] underageOptions = {"Yes", "No"};

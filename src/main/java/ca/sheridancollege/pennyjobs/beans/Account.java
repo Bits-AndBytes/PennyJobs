@@ -2,6 +2,7 @@ package ca.sheridancollege.pennyjobs.beans;
 
 import java.util.Date;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,24 +21,20 @@ public abstract class Account {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer accountId;
+	private Integer id;
 	
 	private String email;
+	
 	private String password;
-	private String lirstName;
+	
+	private String firstName;
+	
 	private String lastName;
-	private String address;
+	
+	@Embedded
+	private Address address;
+	
 	private Date birthDate;
+	
 	private char accountType;
-	
-	@OneToOne
-	private Integer studentId;
-	
-	@OneToOne
-	private Integer parentId;
-	
-	@OneToOne
-	private Integer posterId;
-	
-	
 }

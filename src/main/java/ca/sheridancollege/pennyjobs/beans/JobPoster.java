@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,13 +16,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class JobPoster {
+public class JobPoster extends Account{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer posterId;
-	
-	private Integer accountId;
-
-
+	private Integer id;
 }
