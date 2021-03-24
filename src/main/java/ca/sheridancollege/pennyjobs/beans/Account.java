@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,29 +20,33 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-public abstract class Account {
+public class Account {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer accountId;
+	private Integer id;
 	
 	private String email;
+	
 	private String password;
-	private String lirstName;
+	
+	private String firstName;
+	
 	private String lastName;
+  
 	@Embedded
 	private Address address;
+	
 	private Date birthDate;
-	private char accountType; //'S' for student, 'P' for parent, 'J' for job poster
 	
-	//@OneToOne
-	private Integer studentId;
+	private char accountType;
 	
-	//@OneToOne
-	private Integer parentId;
+	@OneToOne
+	private Student student;
 	
-	//@OneToOne
-	private Integer posterId;
+	@OneToOne
+	private Parent parent;
 	
-	
+	@OneToOne
+	private JobPoster poster;
 }

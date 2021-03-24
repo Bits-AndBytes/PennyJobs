@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,17 +16,19 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @Entity
-public class Student extends Account{
+public class Student {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer studentId;
+	private Integer id;
 	
-	private Integer parentId;
+	@OneToOne
+	private Account account;
+	
+	@OneToOne
+	private Parent parent;
 	
 	private double rating;
 	
 	private String bio;
-	
-	private Integer accountId;
 }
