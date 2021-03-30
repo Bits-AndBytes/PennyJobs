@@ -8,13 +8,29 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ca.sheridancollege.pennyjobs.beans.Job;
+import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
+import ca.sheridancollege.pennyjobs.repositories.JobPosterRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobRepository;
+import ca.sheridancollege.pennyjobs.repositories.ParentRepository;
+import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
 
 @Controller
 public class JobController {
 	
 	@Autowired
 	private JobRepository jRepo;
+	
+	@Autowired
+	private AccountRepository accountRepo;
+	
+	@Autowired 
+	private StudentRepository studentRepo;
+	
+	@Autowired 
+	private ParentRepository parentRepo;
+	
+	@Autowired
+	private JobPosterRepository posterRepo;
 	
 	@GetMapping("/")
 	public String loadRoot() {
