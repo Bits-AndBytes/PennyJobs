@@ -28,7 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String firstName) throws UsernameNotFoundException {
 		
 		//Find a user based on the accountType
+
 		ca.sheridancollege.pennyjobs.beans.Account account = accountRepo.findByFirstName(firstName);
+
 		
 		//If the user cannot be found
 		if (account == null) {
@@ -45,13 +47,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		//Create a Spring User based on the information read
 		UserDetails userDetails = new User(account.getPassword(), account.getEmail(), grantList);
 		
-		/*
-		 * UserDetails userDetails = new User(account.getAccountType(),
-		 * account.getEmail(), account.getEncryptedpassword(), account.getAddress(),
-		 * account.getBirthdate(), account.getFirstname(), account.getLastname(),
-		 * grantList);
-		 */
-	
 		
 		return userDetails;
 	}

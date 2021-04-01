@@ -63,6 +63,7 @@ public class Account {
 	  private JobPoster poster;
 
 
+
 	public Account(String email, String password, String firstName, String lastName, Address address,
 			Date birthDate, String accountType, Student student, Parent parent, JobPoster poster) {
 		this.email = email;
@@ -71,6 +72,7 @@ public class Account {
 		this.lastName = lastName;
 		this.address = address;
 		this.birthDate = birthDate;
+
 		this.accountType = accountType;
 		/*
 		 * this.student = student; this.parent = parent; this.poster = poster;
