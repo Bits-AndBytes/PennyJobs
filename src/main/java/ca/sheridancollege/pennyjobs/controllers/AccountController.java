@@ -36,7 +36,6 @@ public class AccountController {
 	@Autowired
 	private JobPosterRepository posterRepo;
 	
-	
 	@GetMapping("/login")
 	public String loadLoginPage(Model model, @ModelAttribute Account account) {
 		model.addAttribute("account", new Account());
@@ -50,7 +49,6 @@ public class AccountController {
 		
 		return "signUpPage.html"; //needs to be created
 	}
-	
 	
 	@PostMapping("/signup")
 	public String createAccount(@ModelAttribute Account account, 
