@@ -55,19 +55,19 @@ public class AccountController {
 		
 		if (accountType.equals("Parent")) {
 			Parent p = new Parent();
-			account.setAccountType('P');
+			account.setAccountType("P");
 			account.setParent(p);
 		} 
 		
 		else if (accountType.equals("Student")){
 			Student s = new Student();
-			account.setAccountType('S');
+			account.setAccountType("S");
 			account.setStudent(s);
 		}
 		
 		else if (accountType.equals("Poster")){
 			JobPoster j = new JobPoster();
-			account.setAccountType('J');
+			account.setAccountType("J");
 			account.setPoster(j);
 		}
 		

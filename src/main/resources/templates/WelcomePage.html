@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Welcome To Penny Jobs</h1>
+<h1>Welcome to Penny Jobs</h1>
+ <form action="#" th:action="@{/login}" th:object="${login}" method="post">
+        Username:<input type="text" th:field="*{username}"/><br/> 
+        Password:<input type="password" th:field="*{password}"/><br/>   
+    <input type="submit" value="Login"/>
+    </form>
+<a th:href="@{/login}">Log in</a><br>
+<a th:href="@{/signUpPage}">Sign up</a><br>
+
+
 </body>
 </html>
