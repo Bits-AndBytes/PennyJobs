@@ -20,18 +20,22 @@ public class Job {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer jobId;
+	private Integer id;
 	
 	private String title;
+	
 	@Embedded
 	private Address address;
-	private String description;
-	private String underage;
 	
-	//@ManyToOne
-	private Integer posterId;
-	//@ManyToOne
-	private Integer studentId;
+	private String description;
+	
+	private String underage;
+
+	@ManyToOne
+	private JobPoster jobPoster;
+	
+	@ManyToOne
+	private Student student;
 	
 	@Transient
 	private String[] underageOptions = {"Yes", "No"};
