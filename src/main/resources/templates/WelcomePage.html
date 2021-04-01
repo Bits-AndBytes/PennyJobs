@@ -6,13 +6,12 @@
 </head>
 <body>
 <h1>Welcome to Penny Jobs</h1>
- <form action="#" th:action="@{/login}" th:object="${login}" method="post">
-        Username:<input type="text" th:field="*{username}"/><br/> 
-        Password:<input type="password" th:field="*{password}"/><br/>   
+ <form action="#" th:action="@{/login}" th:object="${account}" method="post">
+        Email:<input type="email" name="email"/><br/> 
+        Password:<input type="password" name="password"/><br/>   
     <input type="submit" value="Login"/>
     </form>
-<a th:href="@{/login}">Log in</a><br>
-<a th:href="@{/signUpPage}">Sign up</a><br>
+<a th:href="@{/signup}">Sign up</a><br>
 
 
 </body>

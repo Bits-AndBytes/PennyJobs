@@ -49,6 +49,9 @@ public class Account {
 	
 	private String accountType;
 	
+	@Transient
+	private String[] accountTypes = {"Student","Parent","Job Poster"};
+	
 	
 	  @OneToOne 
 	  private Student student;
@@ -60,14 +63,16 @@ public class Account {
 	  private JobPoster poster;
 
 
-	public Account(String email, String password, String firstname, String lastname, Address address,
-			Date birthdate, String accountType, Student student, Parent parent, JobPoster poster) {
+
+	public Account(String email, String password, String firstName, String lastName, Address address,
+			Date birthDate, String accountType, Student student, Parent parent, JobPoster poster) {
 		this.email = email;
 		this.password = password;
-		this.firstName = firstname;
-		this.lastName = lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
-		this.birthDate = birthdate;
+		this.birthDate = birthDate;
+
 		this.accountType = accountType;
 		/*
 		 * this.student = student; this.parent = parent; this.poster = poster;
