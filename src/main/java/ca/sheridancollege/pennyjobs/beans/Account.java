@@ -47,27 +47,28 @@ public class Account {
 	
 	private Date birthdate;
 	
-	/* private char accountType; */
+	private String accountType;
 	
-	private String accounttype;
 	
-	/*
-	 * @OneToOne private Student student;
-	 * 
-	 * @OneToOne private Parent parent;
-	 * 
-	 * @OneToOne private JobPoster poster;
-	 */
+	  @OneToOne 
+	  private Student student;
+	  
+	  @OneToOne 
+	  private Parent parent;
+	  
+	  @OneToOne 
+	  private JobPoster poster;
+
 
 	public Account(String email, String encryptedpassword, String firstname, String lastname, Address address,
-			Date birthdate, String accounttype, Student student, Parent parent, JobPoster poster) {
+			Date birthdate, String accountType, Student student, Parent parent, JobPoster poster) {
 		this.email = email;
 		this.encryptedpassword = encryptedpassword;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.address = address;
 		this.birthdate = birthdate;
-		this.accounttype = accounttype;
+		this.accountType = accountType;
 		/*
 		 * this.student = student; this.parent = parent; this.poster = poster;
 		 */
