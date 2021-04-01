@@ -35,22 +35,15 @@ VALUES ('jeremylerkin@protonmail.com','AdvancedPaSWord','Jeremy', 'Lerkin', '
 INSERT INTO job (title, description, underage) 
 VALUES ('Lawn moving needed','In need of someone to mow my lawn', 'yes');
 
---	private String title;
---	
---	@Embedded
---	private Address address;
---	
---	private String description;
---	
---	private String underage;
---
---	@ManyToOne
---	private JobPoster jobPoster;
---	
---	@ManyToOne
---	private Student student;
---	
---	@Transient
---	private String[] underageOptions = {"Yes", "No"};
-	
+insert into Role (rolename)
+values ('ROLE_STUDENT');
+ 
+insert into Role (rolename)
+values ('ROLE_PARENT');
+
+insert into Role (rolename)
+values ('ROLE_POSTER');
+
+insert into Role (rolename)
+values ('ROLE_ADMIN');
 
