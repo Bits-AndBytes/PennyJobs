@@ -21,17 +21,7 @@ public class JobController {
 		return "WelcomePage.html";
 	}
 	
-	@GetMapping("/login")
-	public String loadLoginPage() {
-		return "login.html";
-	}
-	
-	@GetMapping("/signup")
-	public String loadSignupPage() {
-		return "signup.html";
-	}
-	
-	@GetMapping("/jobpost")
+	@GetMapping("jobpost")
 	public String loadAddJob(Model model, @ModelAttribute Job job) {
 		model.addAttribute("job", new Job());
 		return "JobForm.html";
