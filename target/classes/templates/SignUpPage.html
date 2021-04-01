@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Welcome to Penny Jobs</h1>
+ <form action="#" th:action="@{/signUpPage}" th:object="${signUpPage}" method="post">
+        First Name:<input type="text" th:field="*{username}"/><br/> 
+        Last Name:<input type="password" th:field="*{password}"/><br/>
+        Province: <select name="province">
+            <option th:each="p: ${provinces}" th:value="${province}" th:text="${province}">
+        </select><br/>  
+        City:<input type="text" th:field="*{city}"/><br/>
+        Postal Code:<input type="text" th:field="*{postalCode}"/><br/>      
+        Address:<input type="text" th:field="*{address}"/><br/> 
+        Email:<input type="email" th:field="*{email}"/><br/>      
+    <input type="submit" value="Sign up"/>
+    </form>
+<a th:href="@{/login}">Go to Login</a><br>
+
+
+</body>
+</html>
