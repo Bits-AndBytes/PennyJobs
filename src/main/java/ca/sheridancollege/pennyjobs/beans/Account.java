@@ -36,18 +36,21 @@ public class Account {
 	
 	private String email;
 	
-	private String encryptedpassword;
+	private String password;
 	
-	private String firstname;
+	private String firstName;
 	
-	private String lastname;
+	private String lastName;
 	
 	@Embedded
 	private Address address;
 	
-	private Date birthdate;
+	private Date birthDate;
 	
 	private String accountType;
+	
+	@Transient
+	private String[] accountTypes = {"Student","Parent","Job Poster"};
 	
 	
 	  @OneToOne 
@@ -60,14 +63,14 @@ public class Account {
 	  private JobPoster poster;
 
 
-	public Account(String email, String encryptedpassword, String firstname, String lastname, Address address,
-			Date birthdate, String accountType, Student student, Parent parent, JobPoster poster) {
+	public Account(String email, String password, String firstName, String lastName, Address address,
+			Date birthDate, String accountType, Student student, Parent parent, JobPoster poster) {
 		this.email = email;
-		this.encryptedpassword = encryptedpassword;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
-		this.birthdate = birthdate;
+		this.birthDate = birthDate;
 		this.accountType = accountType;
 		/*
 		 * this.student = student; this.parent = parent; this.poster = poster;

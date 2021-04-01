@@ -8,5 +8,5 @@ import ca.sheridancollege.pennyjobs.beans.Account;
 
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
-	public Account findByFirstname(String firstname);
+	public Account findByFirstName(String firstName);
 }

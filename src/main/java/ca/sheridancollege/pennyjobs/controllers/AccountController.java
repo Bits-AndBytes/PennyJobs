@@ -35,19 +35,22 @@ public class AccountController {
 	
 	@Autowired
 	private JobPosterRepository posterRepo;
-
-	@GetMapping("/signup")
-	public String loadSignUp() {
-		
-		return "signup.html"; //needs to be created
-	}
+	
 	
 	@GetMapping("/login")
-	public String loadLoginPage() {
+	public String loadLoginPage(Model model, @ModelAttribute Account account) {
+		model.addAttribute("account", new Account());
 		
-		
-		return "login.html";//needs to be created for a custom login page
+		return "WelcomePage.html";//needs to be created for a custom login page
 	}
+	
+	@GetMapping("/signup")
+	public String loadSignUp(Model model, @ModelAttribute Account account) {
+		model.addAttribute("account", new Account());
+		
+		return "signUpPage.html"; //needs to be created
+	}
+	
 	
 	@PostMapping("/signup")
 	public String createAccount(@ModelAttribute Account account, 
