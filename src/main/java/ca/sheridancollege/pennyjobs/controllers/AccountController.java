@@ -40,7 +40,7 @@ public class AccountController {
 	public String loadLoginPage(Model model, @ModelAttribute Account account) {
 		model.addAttribute("account", new Account());
 		
-		return "WelcomePage.html";//needs to be created for a custom login page
+		return "WelcomePage.html"; //needs to be created for a custom login page
 	}
 	
 	@GetMapping("/signup")
@@ -74,7 +74,7 @@ public class AccountController {
 		
 		accountRepo.save(account);
 		
-		return ""; //leads to user homepage
+		return "WelcomePage.html"; //leads to user homepage
 	}
 	
 	//this is not meant to be seen by the user
@@ -91,7 +91,6 @@ public class AccountController {
 		for (GrantedAuthority g : auth.getAuthorities()) {
 			roles.add(g.getAuthority());
 		}
-		
 		
 		//get first role and determine where to send the user
 		switch (roles.get(0)) {
