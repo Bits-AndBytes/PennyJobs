@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,6 +46,7 @@ public class Account {
 	@Embedded
 	private Address address;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	
 	private String accountType;
@@ -53,13 +55,13 @@ public class Account {
 	private String[] accountTypes = {"Student","Parent","Job Poster"};
 	
 	
-	  @OneToOne 
+	  @OneToOne(cascade=CascadeType.ALL) 
 	  private Student student;
 	  
-	  @OneToOne 
+	  @OneToOne(cascade=CascadeType.ALL) 
 	  private Parent parent;
 	  
-	  @OneToOne 
+	  @OneToOne(cascade=CascadeType.ALL)  
 	  private JobPoster poster;
 
 
@@ -82,8 +84,5 @@ public class Account {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Role> roles = new ArrayList<Role>();
-	
-	
-	
 	
 }

@@ -18,9 +18,9 @@
         Province: <select th:field="*{address.province}">
             <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
         </select><br/>  
-        City:<input type="text" name="city"/><br/>
-        Postal Code:<input type="text" name="postalCode"/><br/>      
-        Street Address:<input type="text" name="street"/><br/>   
+        City:<input type="text" th:field="*{address.city}"/><br/>
+        Postal Code:<input type="text" th:field="*{address.postalCode}"/><br/>      
+        Street Address:<input type="text" th:field="*{address.street}"/><br/>   
     <input type="submit" value="Sign up"/>
     </form>
 <a th:href="@{/login}">Go to Login</a><br>
