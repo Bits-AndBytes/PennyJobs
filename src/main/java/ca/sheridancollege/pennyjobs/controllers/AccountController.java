@@ -3,6 +3,7 @@ package ca.sheridancollege.pennyjobs.controllers;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -37,9 +38,7 @@ public class AccountController {
 	private JobPosterRepository posterRepo;
 	
 	@GetMapping("/login")
-	public String loadLoginPage(Model model, @ModelAttribute Account account) {
-		model.addAttribute("account", new Account());
-		
+	public String loadLoginPage() {
 		return "WelcomePage.html"; //needs to be created for a custom login page
 	}
 	
@@ -79,7 +78,7 @@ public class AccountController {
 	
 	//this is not meant to be seen by the user
 	//this will be the default mapping to be sent to once user has been validated
-	@GetMapping("/accountpageredirect")
+	@PostMapping("/accountredirectpage")
 	public String accountRedirect(Authentication auth, Model model) {
 		
 		String destination = "";//default home page

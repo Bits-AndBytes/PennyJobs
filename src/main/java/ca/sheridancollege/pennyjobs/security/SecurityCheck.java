@@ -29,8 +29,11 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 				http.authorizeRequests()
 					//specific URL is restricted to the specific role
 					//antMatchers are for URLS not HTMLs
-					.antMatchers("/user").hasRole("USER")
-					.antMatchers("/burgers").hasAnyRole("BURGER", "PICKLE")
+//					.antMatchers("/student").hasRole("STUDENT")
+//					.antMatchers("/parent").hasRole("PARENT")
+//					.antMatchers("/poster").hasRole("POSTER")
+					.antMatchers("/accountredirectpage").hasAnyRole("STUDENT", "PARENT", "POSTER")
+					.antMatchers("/admin").hasAnyRole("STUDENT", "PARENT", "POSTER")
 					
 					.antMatchers("/register").permitAll()
 					.antMatchers(HttpMethod.POST, "/register").permitAll()			

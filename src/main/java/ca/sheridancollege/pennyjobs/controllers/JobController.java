@@ -21,7 +21,7 @@ public class JobController {
 		return "WelcomePage.html";
 	}
 	
-	@GetMapping("jobpost")
+	@GetMapping("/jobpost")
 	public String loadAddJob(Model model, @ModelAttribute Job job) {
 		model.addAttribute("job", new Job());
 		return "JobForm.html";
