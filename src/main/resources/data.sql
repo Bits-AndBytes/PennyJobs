@@ -1,6 +1,6 @@
 --***STUDENT SAMPLE***
-INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type) 
-VALUES ('johnsmith1@gmail.com','password123','John', 'Smith', '123 Example St', 'Oakville', 'L6L 7U9', 'ON', '2005-11-17', 'S');
+INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type, Enabled) 
+VALUES ('johnsmith1@gmail.com','password123','John', 'Smith', '123 Example St', 'Oakville', 'L6L 7U9', 'ON', '2005-11-17', 'S', 1);
 
 INSERT INTO student (Rating, Bio)
  VALUES (8.5, 'Example');
@@ -11,8 +11,8 @@ INSERT INTO student (Rating, Bio)
 
 
 --***PARENT SAMPLE***
-INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type) 
-VALUES ('janesmith13@yahoo.ca','Password321','Jane', 'Smith', '123 Example St', 'Oakville', 'L6L 7U9', 'ON', '1973-06-03', 'P');
+INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type, Enabled) 
+VALUES ('janesmith13@yahoo.ca','Password321','Jane', 'Smith', '123 Example St', 'Oakville', 'L6L 7U9', 'ON', '1973-06-03', 'P', 1);
 
 
 --INSERT INTO parent (StudentID, AccountID) 
@@ -23,8 +23,8 @@ VALUES ('janesmith13@yahoo.ca','Password321','Jane', 'Smith', '123 Example 
 
 
 --***JOB POSTER SAMPLE***
-INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type) 
-VALUES ('jeremylerkin@protonmail.com','AdvancedPaSWord','Jeremy', 'Lerkin', '356 Oak Lane', 'Oakville', 'L6L 9B6','ON', '1952-03-24', 'J');
+INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type, Enabled) 
+VALUES ('jeremylerkin@protonmail.com','AdvancedPaSWord','Jeremy', 'Lerkin', '356 Oak Lane', 'Oakville', 'L6L 9B6','ON', '1952-03-24', 'J', 1);
 
 --INSERT INTO jobposter (AccountID) 
 --VALUES ((SELECT AccountID from [dbo].[Account] where AccountID = 5));

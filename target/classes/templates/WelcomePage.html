@@ -6,9 +6,18 @@
 </head>
 <body>
 <h1>Welcome to Penny Jobs</h1>
- <form action="#" th:action="@{/login}" th:object="${account}" method="post">
-        Email:<input type="email" name="email"/><br/> 
-        Password:<input type="password" name="password"/><br/>   
+ <form action="#" th:action="@{/accountredirectpage}" th:object="${account}" method="post">
+	<div th:if="${param.error}">
+	    <div class="alert">
+	        Invalid email or password.
+	    </div>
+	</div>
+	<div>
+    	Email: <input type="email" name="email"/><br/> 
+	</div>
+	<div>
+    	Password: <input type="password" name="password"/><br/> 
+	</div>  
     <input type="submit" value="Login"/>
     </form>
 <a th:href="@{/signup}">Sign up</a><br>
