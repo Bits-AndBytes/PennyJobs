@@ -42,7 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		//Create a Spring User based on the information read
-		UserDetails userDetails = new User(account.getPassword(), account.getFirstName(), grantList);
+		UserDetails userDetails = (UserDetails) new User(account.getEmail(),
+				account.getPassword(), grantList);
 		
 		
 		return userDetails;

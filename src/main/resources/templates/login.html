@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+</head>
+<body>
+<h1>Sign in</h1>
+ <form action="#" th:action="@{/login}" th:object="${account}" method="post">
+	<div th:if="${param.error}">
+	    <div class="alert">
+	        Invalid email or password.
+	    </div>
+	</div>
+	<div>
+	<!--  name NEEDS to be username as it gets sent to Spring Boot and has specific naming needs -->
+    	Email: <input type="email" name="username"/><br/> 
+	</div>
+	<div>
+    	Password: <input type="password" name="password"/><br/> 
+	</div>  
+    <input type="submit" name="login-submit" id="login-submit" value="Sign in">
+    </form>
+    
+<a th:href="@{/signup}">Sign up</a>
+<br>
+<a th:href="@{/}">Go home</a>
+
+</body>
+</html>

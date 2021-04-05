@@ -5,7 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to Penny Jobs</h1>
+<h1>Create an account</h1>
  <form action="#" th:action="@{/signup}" th:object="${account}" method="post">
   		Account Type: <select th:field="*{accountType}">
             <option th:each="a: *{accountTypes}" th:value="${a}" th:text="${a}">
@@ -23,8 +23,9 @@
         Street Address:<input type="text" th:field="*{address.street}"/><br/>   
     <input type="submit" value="Sign up"/>
     </form>
-<a th:href="@{/login}">Go to Login</a><br>
-
+	<a th:href="@{/login}">Go to Login</a>
+	<br>
+	<a th:href="@{/}">Go home</a>
 
 </body>
 </html>

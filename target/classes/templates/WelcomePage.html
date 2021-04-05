@@ -2,26 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Welcome</title>
 </head>
 <body>
 <h1>Welcome to Penny Jobs</h1>
- <form action="#" th:action="@{/accountredirectpage}" th:object="${account}" method="post">
-	<div th:if="${param.error}">
-	    <div class="alert">
-	        Invalid email or password.
-	    </div>
-	</div>
-	<div>
-    	Email: <input type="email" name="email"/><br/> 
-	</div>
-	<div>
-    	Password: <input type="password" name="password"/><br/> 
-	</div>  
-    <input type="submit" value="Login"/>
-    </form>
-<a th:href="@{/signup}">Sign up</a><br>
 
+<a th:href="@{/login}">Login</a>
+<br>
+<a th:href="@{/signup}">Sign up</a>
 
 </body>
 </html>

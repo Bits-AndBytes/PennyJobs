@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobPosterRepository;
 import ca.sheridancollege.pennyjobs.repositories.ParentRepository;
+import ca.sheridancollege.pennyjobs.repositories.RoleRepository;
 import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
 
 @Controller
@@ -37,9 +39,19 @@ public class AccountController {
 	@Autowired
 	private JobPosterRepository posterRepo;
 	
+	@Autowired
+	private RoleRepository roleRepo;
+	
+	
+	//create method to encrypt and SALT passwords to be stored in the database
+	public static String encrypt(String password) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder.encode(password);
+	}
+	
 	@GetMapping("/login")
 	public String loadLoginPage() {
-		return "WelcomePage.html"; //needs to be created for a custom login page
+		return "login.html"; //needs to be created for a custom login page
 	}
 	
 	@GetMapping("/signup")
@@ -53,35 +65,41 @@ public class AccountController {
 	public String createAccount(@ModelAttribute Account account, 
 			@RequestParam String accountType, Model model) {
 		
+		//take given password and re-enter it as encrypted
+		account.setPassword(encrypt(account.getPassword()));
+		
 		if (accountType.equals("Parent")) {
 			Parent p = new Parent();
 			account.setAccountType("P");
 			account.setParent(p);
+			account.getRoles().add(roleRepo.findByRolename("ROLE_PARENT"));
 		} 
 		
 		else if (accountType.equals("Student")){
 			Student s = new Student();
 			account.setAccountType("S");
 			account.setStudent(s);
+			account.getRoles().add(roleRepo.findByRolename("ROLE_STUDENT"));
 		}
 		
 		else if (accountType.equals("Poster")){
 			JobPoster j = new JobPoster();
 			account.setAccountType("J");
 			account.setPoster(j);
+			account.getRoles().add(roleRepo.findByRolename("ROLE_POSTER"));
 		}
 		
 		accountRepo.save(account);
 		
-		return "WelcomePage.html"; //leads to user homepage
+		return "login.html"; //leads to user homepage
 	}
 	
 	//this is not meant to be seen by the user
 	//this will be the default mapping to be sent to once user has been validated
-	@PostMapping("/accountredirectpage")
+	@GetMapping("/accountredirectpage")
 	public String accountRedirect(Authentication auth, Model model) {
 		
-		String destination = "";//default home page
+		String destination = "";//default root page
 		
 		//create an arraylist to store user's roles in
 		ArrayList<String> roles = new ArrayList<String>();
@@ -94,21 +112,42 @@ public class AccountController {
 		//get first role and determine where to send the user
 		switch (roles.get(0)) {
 		case "ROLE_STUDENT":
-			destination = "student.html"; //home page for student
+			destination = "student"; //home page for student
 			break;
 			
 		case "ROLE_PARENT":
-			destination = "parent.html"; //home page for parent
+			destination = "parent"; //home page for parent
 			break;
 			
 		case "ROLE_POSTER":
-			destination = "poster.html"; //home page for job poster
+			destination = "poster"; //home page for job poster
 			break;
 		case "ROLE_ADMIN":
-			destination = "admin.html"; //home page for admin
+			destination = "admin"; //home page for admin
 			break;
 		}
 		
-		return destination; //leads to user homepage
+		return "redirect:/" + destination; //leads to user homepage
+	}
+	
+	@GetMapping("/student")
+	public String loadStudent() {
+		return "student.html";
+	}
+	
+	@GetMapping("/parent")
+	public String loadParent() {
+		return "parent.html";
+	}
+	
+	@GetMapping("/poster")
+	public String loadPoster(){
+		
+		return "poster.html";
+	}
+	
+	@GetMapping("/admin")
+	public String loadAdmin() {
+		return "admin.html";
 	}
 }
