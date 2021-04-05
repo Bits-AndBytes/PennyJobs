@@ -130,6 +130,12 @@ public class AccountController {
 		return "redirect:/" + destination; //leads to user homepage
 	}
 	
+	//redirects user to this page when they are trying to
+	@GetMapping("/access-denied")
+	public String accessDenied() {
+		return "accessdenied.html";
+	}
+	
 	@GetMapping("/student")
 	public String loadStudent() {
 		return "student.html";
