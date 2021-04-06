@@ -3,28 +3,53 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Login</title>
+<link rel="stylesheet" type="text/css" media="all" 
+			href="../static/css/w3.css"
+			th:href="@{/css/w3.css}"
+		/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<h1>Sign in</h1>
- <form action="#" th:action="@{/login}" th:object="${account}" method="post">
-	<div th:if="${param.error}">
-	    <div class="alert">
-	        Invalid email or password.
-	    </div>
-	</div>
-	<div>
-	<!--  name NEEDS to be username as it gets sent to Spring Boot and has specific naming needs -->
-    	Email: <input type="email" name="username"/><br/> 
-	</div>
-	<div>
-    	Password: <input type="password" name="password"/><br/> 
-	</div>  
-    <input type="submit" name="login-submit" id="login-submit" value="Sign in">
-    </form>
-    
-<a th:href="@{/signup}">Sign up</a>
-<br>
-<a th:href="@{/}">Go home</a>
 
+
+<div class="w3-top">
+	<div class="w3-bar w3-white w3-card" id="myNavbar">
+	
+    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+    	
+    	<div class="w3-right w3-hide-small">
+	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/login}"><i class="fa fa-user"></i>Login</a>
+	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/signup}"><i class="fa fa-pencil"></i>Sign up</a>
+    	</div>
+    </div>
+</div>
+
+<div  class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+	<h1>Sign in</h1>
+	<form action="#" th:action="@{/login}" th:object="${account}" method="post">
+		<div th:if="${param.error}">
+		    <div class="alert w3-red">
+		        Invalid email or password
+		    </div>
+		</div>
+		<div>
+	<!--  name NEEDS to be username as it gets sent to Spring Boot and has specific naming needs -->
+	<label for="email">
+		Email: 
+		<input type="email" class="w3-input w3-border" name="username" placeholder="Email" id="email"/>
+	</label>
+    
+    <br/> 
+	</div>
+	<div>
+		<label for="password">
+			Password: 
+			<input type="password" class="w3-input w3-border" name="password" placeholder="Password" id="password"/>
+		</label>
+    	<br/> 
+	</div>  
+    <input type="submit" class="w3-button w3-black" name="login-submit" id="login-submit" value="Sign in">
+    </form>
+</div>
 </body>
 </html>
