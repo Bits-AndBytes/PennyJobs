@@ -22,5 +22,24 @@
 	</div>
 	
 	<h1>Post A Job Now!</h1>
+ <form action="#" th:action="@{/jobpost}" th:object="${job}" method="post">
+  		
+        Job Title:<input type="text" name="title"/><br/> 
+        Job Description:<input type="text" name="description"/><br/> 
+        Province: <select th:field="*{address.province}">
+            <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
+        </select><br/>  
+        City:<input type="text" th:field="*{address.city}"/><br/>
+        Postal Code:<input type="text" th:field="*{address.postalCode}"/><br/>      
+        Street Address:<input type="text" th:field="*{address.street}"/><br/>  
+        
+        Is this job suitable for someone under-age?<select th:field="*{underage}">
+            <option th:each="u: *{underageOptions}" th:value="${u}" th:text="${u}">
+        </select><br/>        
+	 <input type="submit" value="Post Job"/> <br>
+	 
+	 </form>
+	 <a th:href="@{/poster}">Go home</a> 
+	
 </body>
 </html>

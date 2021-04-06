@@ -158,14 +158,11 @@ public class AccountController {
 		
 		return "parent.html";
 	}
-	
-	@GetMapping("/poster")
-	public String loadPoster(Authentication auth, Model model){
-		
-		model.addAttribute("name", getName(auth));
-		
-		return "poster.html";
-	}
+	/*
+	 * @GetMapping("/poster") public String loadPoster(){
+	 * 
+	 * return "poster.html"; }
+	 */
 	
 	@GetMapping("/admin")
 	public String loadAdmin(Authentication auth, Model model) {

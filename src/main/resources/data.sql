@@ -35,8 +35,8 @@ VALUES ('jeremylerkin@protonmail.com','$2a$10$CihMqn17jge8cAM8xQcszuICJaQqxna8Z
 --Update [dbo].[Account] SET PosterID = (SELECT p.PosterID FROM [dbo].[JobPoster] as p, [dbo].[Account] as a WHERE a.AccountID = p.AccountID) WHERE AccountID = 4;
 
 --***JOB AD SAMPLE DATA***
-INSERT INTO job (title, description, underage) 
-VALUES ('Lawn moving needed','In need of someone to mow my lawn', 'yes');
+INSERT INTO job (title, description, province, city, street, postal_Code, underage) 
+VALUES ('Lawn moving needed','In need of someone to mow my lawn', 'Ontario', 'Oakville', 'Randrom Street 123','L6M0M1', 'Yes');
 
 --***Admin sample account (password is: admin)
 INSERT INTO account (email,password) VALUES ('admin@pennyjobs.ca', '$2a$10$LchoNWvrW/TGqO1Isahqc.bPuW.cFlfI/4ra8DbZLu2eD7QIWks8O');
