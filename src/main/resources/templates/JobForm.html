@@ -13,33 +13,76 @@
 	<div class="w3-top">
 		<div class="w3-bar w3-white w3-card" id="myNavbar">
 		
-	    	<a th:href="@{/poster}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
 	    	<div class="w3-right w3-hide-small">
+	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/chat}"><i class="fa fa-comments-o"></i>Live Chat</a>
 		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
 	    	</div>
 	    </div>
 	</div>
 	
-	<h1>Post A Job Now!</h1>
- <form action="#" th:action="@{/jobpost}" th:object="${job}" method="post">
-  		
-        Job Title:<input type="text" name="title"/><br/> 
-        Job Description:<input type="text" name="description"/><br/> 
-        Province: <select th:field="*{address.province}">
-            <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
-        </select><br/>  
-        City:<input type="text" th:field="*{address.city}"/><br/>
-        Postal Code:<input type="text" th:field="*{address.postalCode}"/><br/>      
-        Street Address:<input type="text" th:field="*{address.street}"/><br/>  
-        
-        Is this job suitable for someone under-age?<select th:field="*{underage}">
-            <option th:each="u: *{underageOptions}" th:value="${u}" th:text="${u}">
-        </select><br/>        
-	 <input type="submit" value="Post Job"/> <br>
-	 
+	<div  class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+		<a th:href="@{/}"><i class="fa fa-arrow-left"></i>Back</a>
+		<h1>Post A Job Now!</h1>
+	 	<form action="#" th:action="@{/jobpost}" th:object="${job}" method="post">
+	 	
+	 	<label for="title">
+	 		Job Title:
+	 		<input type="text" class="w3-input w3-border" name="title" id="title"/>
+	 	</label>
+	 	
+	 	<br>
+	 	
+	 	<label for="description">
+	 		Job Description:
+	 		<input type="text" class="w3-input w3-border" name="description" id="description"/>
+	 	</label>
+	 	
+	 	<br>
+	 	
+	 	<label for="province">
+	 		Province: 
+		 	<select th:field="*{address.province}" class="w3-select w3-border" id="province">
+		    	<option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
+		    </select>
+	 	</label>
+	 	
+	 	<br>
+	 	
+	 	<label for="city">
+	 		City:
+	 		<input type="text" class="w3-input w3-border" th:field="*{address.city}" id="city"/>
+	 	</label>
+	 	
+	 	<br>
+	 	
+	 	<label for="postalCode">
+	 		Postal Code:
+	 		<input type="text" class="w3-input w3-border" th:field="*{address.postalCode}" id="postalcode"/>
+	 	</label>
+	 	
+	 	<br>
+	 	
+	 	<label for="address">
+	 		Street Address:
+	 		<input type="text" class="w3-input w3-border" th:field="*{address.street}" id="address"/>
+	 	</label>
+	 	
+	 	<br>
+	 	
+	 	<label for="underage">
+	 		Is this job suitable for someone under-age?
+	        <select th:field="*{underage}" id="underage" class="w3-select">
+	            <option th:each="u: *{underageOptions}" th:value="${u}" th:text="${u}">
+	        </select>
+	 	</label>
+	 	
+	 	<br>
+	 	
+		 	<input type="submit" value="Post Job" class="w3-button w3-black"/> <br>
+		 
 	 </form>
-	 <a th:href="@{/poster}">Go home</a> 
-	
+	</div>
 </body>
 </html>
