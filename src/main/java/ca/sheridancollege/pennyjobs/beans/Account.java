@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,29 +46,35 @@ public class Account {
 	@Embedded
 	private Address address;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	
 	private String accountType;
 	
+	@Transient
+	private String[] accountTypes = {"Student","Parent","Job Poster"};
 	
-	  @OneToOne 
+	
+	  @OneToOne(cascade=CascadeType.ALL) 
 	  private Student student;
 	  
-	  @OneToOne 
+	  @OneToOne(cascade=CascadeType.ALL) 
 	  private Parent parent;
 	  
-	  @OneToOne 
+	  @OneToOne(cascade=CascadeType.ALL)  
 	  private JobPoster poster;
 
 
-	public Account(String email, String password, String firstname, String lastname, Address address,
-			Date birthdate, String accountType, Student student, Parent parent, JobPoster poster) {
+
+	public Account(String email, String password, String firstName, String lastName, Address address,
+			Date birthDate, String accountType, Student student, Parent parent, JobPoster poster) {
 		this.email = email;
 		this.password = password;
-		this.firstName = firstname;
-		this.lastName = lastname;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.address = address;
-		this.birthDate = birthdate;
+		this.birthDate = birthDate;
+
 		this.accountType = accountType;
 		/*
 		 * this.student = student; this.parent = parent; this.poster = poster;
@@ -77,8 +84,5 @@ public class Account {
 	
 	@ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Role> roles = new ArrayList<Role>();
-	
-	
-	
 	
 }

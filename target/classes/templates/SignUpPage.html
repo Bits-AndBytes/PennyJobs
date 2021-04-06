@@ -5,21 +5,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Welcome to Penny Jobs</h1>
- <form action="#" th:action="@{/signUpPage}" th:object="${signUpPage}" method="post">
-        First Name:<input type="text" th:field="*{username}"/><br/> 
-        Last Name:<input type="password" th:field="*{password}"/><br/>
-        Province: <select name="province">
-            <option th:each="p: ${provinces}" th:value="${province}" th:text="${province}">
+<h1>Create an account</h1>
+ <form action="#" th:action="@{/signup}" th:object="${account}" method="post">
+  		Account Type: <select th:field="*{accountType}">
+            <option th:each="a: *{accountTypes}" th:value="${a}" th:text="${a}">
         </select><br/>  
-        City:<input type="text" th:field="*{city}"/><br/>
-        Postal Code:<input type="text" th:field="*{postalCode}"/><br/>      
-        Address:<input type="text" th:field="*{address}"/><br/> 
-        Email:<input type="email" th:field="*{email}"/><br/>      
+        First Name:<input type="text" name="firstName"/><br/> 
+        Last Name:<input type="text" name="lastName"/><br/>
+        Password:<input type="password" name="password"/><br/> 
+        Email:<input type="email" name="email"/><br/>    
+        Birth Date:<input type="date" name="birthDate"/><br/>
+        Province: <select th:field="*{address.province}">
+            <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
+        </select><br/>  
+        City:<input type="text" th:field="*{address.city}"/><br/>
+        Postal Code:<input type="text" th:field="*{address.postalCode}"/><br/>      
+        Street Address:<input type="text" th:field="*{address.street}"/><br/>   
     <input type="submit" value="Sign up"/>
     </form>
-<a th:href="@{/login}">Go to Login</a><br>
-
+	<a th:href="@{/login}">Go to Login</a>
+	<br>
+	<a th:href="@{/}">Go home</a>
 
 </body>
 </html>

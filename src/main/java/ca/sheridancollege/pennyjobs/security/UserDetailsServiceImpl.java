@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import ca.sheridancollege.pennyjobs.beans.Account;
 import ca.sheridancollege.pennyjobs.beans.Role;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 
@@ -25,15 +24,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private AccountRepository accountRepo;
 	
 	@Override
-	public UserDetails loadUserByUsername(String firstname) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
 		//Find a user based on the accountType
-		ca.sheridancollege.pennyjobs.beans.Account account = accountRepo.findByFirstName(firstname);
-		
+		ca.sheridancollege.pennyjobs.beans.Account account = accountRepo.findByEmail(email);
+
 		//If the user cannot be found
 		if (account == null) {
-			System.out.println("User not found:"+firstname);
-			throw new UsernameNotFoundException("User " + firstname + "was not found in the database");
+			System.out.println("User not found:" + email);
+			throw new UsernameNotFoundException("User " + email + "was not found in the database");
 		}
 		
 		//Change the list of the user's roles into a list of GrantedAuthority
@@ -43,7 +42,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		
 		//Create a Spring User based on the information read
-		UserDetails userDetails = new User(account.getPassword(), account.getEmail(), grantList);
+		UserDetails userDetails = (UserDetails) new User(account.getEmail(),
+				account.getPassword(), grantList);
 		
 		
 		return userDetails;

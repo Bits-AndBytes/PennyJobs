@@ -29,8 +29,13 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 				http.authorizeRequests()
 					//specific URL is restricted to the specific role
 					//antMatchers are for URLS not HTMLs
-					.antMatchers("/user").hasRole("USER")
-					.antMatchers("/burgers").hasAnyRole("BURGER", "PICKLE")
+					.antMatchers("/student").hasAnyRole("STUDENT", "ADMIN")
+					.antMatchers("/parent").hasAnyRole("PARENT", "ADMIN")
+					.antMatchers("/poster").hasAnyRole("POSTER", "ADMIN")
+					//this should permit anyone as it is just a redirect 
+					//and will only be loaded after authentication
+					.antMatchers("/accountredirectpage").permitAll()
+					.antMatchers("/admin").hasRole("ADMIN")
 					
 					.antMatchers("/register").permitAll()
 					.antMatchers(HttpMethod.POST, "/register").permitAll()			
@@ -42,7 +47,8 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 					.and()
 					.formLogin()
 						.loginPage("/login")
-						.defaultSuccessUrl("/user")
+						//send user to redirect page
+						.defaultSuccessUrl("/accountredirectpage")
 						.permitAll()
 					.and()
 					.logout()
