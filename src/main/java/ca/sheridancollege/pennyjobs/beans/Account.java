@@ -52,7 +52,7 @@ public class Account {
 	private String accountType;
 	
 	@Transient
-	private String[] accountTypes = {"Student","Parent","Job Poster"};
+	private String[] accountTypes = {"Student","Parent","Poster"};
 	
 	
 	  @OneToOne(cascade=CascadeType.ALL) 

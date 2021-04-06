@@ -7,5 +7,35 @@
 <body>
 	<h1>Hello, User!</h1>
 	<div>Role: Job Poster</div>
+	<a th:href="@{/jobpost}">Post a job</a><br>
+	 <a th:href="@{/chat}">Go to Live Chat</a><br>
+	  <a th:href="@{/logout}">Logout</a>
+	  
+	
+<div th:if="${jobs != null}">
+<table border="1">
+	<tr>
+		<th>Job Title</th>
+		<th>Job Description</th>
+		<th>Province</th>
+		<th>City</th>
+		<th>Street Address</th>
+		<th>Postal Code</th>
+		<th>Under-age</th>
+		</tr>
+	<tr th:each="j : ${jobs}">
+		<td th:text="${j.title}"></td>
+		<td th:text="${j.description}"></td>
+		<td th:text="${j.address.province}"></td>
+		<td th:text="${j.address.city}"></td>
+		<td th:text="${j.address.street}"></td>
+		<td th:text="${j.address.postalCode}"></td>
+		<td th:text="${j.underage}"></td>
+		<td><a th:href="@{/delete/{jobid}(jobid=${j.id})}">DELETE</a></td>
+		
+		</tr>
+		</table>
+		</div>
+	
 </body>
 </html>

@@ -26,7 +26,7 @@ public class Job {
 	
 	@Embedded
 	private Address address;
-	
+
 	private String description;
 	
 	private String underage;

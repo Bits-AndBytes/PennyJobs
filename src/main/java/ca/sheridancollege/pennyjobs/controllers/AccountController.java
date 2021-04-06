@@ -146,11 +146,13 @@ public class AccountController {
 		return "parent.html";
 	}
 	
-	@GetMapping("/poster")
-	public String loadPoster(){
-		
-		return "poster.html";
-	}
+	/*
+	 * @GetMapping("/poster") public String loadPoster(){
+	 * 
+	 * return "poster.html"; }
+	 */
+	
+	
 	
 	@GetMapping("/admin")
 	public String loadAdmin() {
