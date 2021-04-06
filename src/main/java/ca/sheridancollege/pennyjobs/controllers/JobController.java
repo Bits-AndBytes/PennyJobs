@@ -24,7 +24,17 @@ public class JobController {
 	private AccountRepository accountRepo;
 	
 	@GetMapping("/")
-	public String loadRoot() {
+	public String loadRoot(Authentication auth) {
+		
+		//this will direct the user to the right homepage if they go back to root
+		if (auth != null) {
+			if (auth.isAuthenticated()) {
+				return "redirect:/accountredirectpage";
+			} else {
+				return "WelcomePage.html";
+			}
+		}
+		
 		return "WelcomePage.html";
 	}
 	
@@ -37,11 +47,20 @@ public class JobController {
 	@PostMapping("/jobpost")
 	public String addJob(Model model, @ModelAttribute Job job, Authentication auth) {
 		Account account = accountRepo.findByEmail(auth.getName());
-		JobPoster jobposter = account.getPoster();
-		job.setJobPoster(jobposter);
-		jRepo.save(job);
+		
+		if (account.getPoster() != null) {
+			JobPoster jobposter = account.getPoster();
+			job.setJobPoster(jobposter);
+			
+			jRepo.save(job);
+			
+			//added if statement so program wont crash
+			if (jobposter.getId() != null) {
+				model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
+			}
+		}
 		model.addAttribute("job", new Job());
-		model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
+		
 		return "JobForm.html";
 	}
 	
@@ -52,9 +71,23 @@ public class JobController {
 	
 	@GetMapping("/poster")
 	public String loadPoster(Model model, Authentication auth){
+		
 		Account account = accountRepo.findByEmail(auth.getName());
-		JobPoster jobposter = account.getPoster();
-		model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
+		
+		model.addAttribute("name", account.getFirstName());
+		
+		
+		
+		//added if statement so program wont crash
+		if (account.getPoster() != null) {
+			
+			JobPoster jobposter = account.getPoster();
+			
+			if (jobposter.getId() != null) {
+				model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
+			}
+		}
+		
 		return "poster.html";
 	}
 }

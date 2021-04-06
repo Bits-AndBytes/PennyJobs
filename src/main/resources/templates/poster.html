@@ -13,23 +13,22 @@
 	<div class="w3-top">
 		<div class="w3-bar w3-white w3-card" id="myNavbar">
 		
-	    	<a th:href="@{/poster}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
 	    	<div class="w3-right w3-hide-small">
-		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
+		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/jobpost}"><i class="fa fa-pencil"></i>Post a job</a>
+				<a class="w3-bar-item w3-button w3-wide" th:href="@{/chat}"><i class="fa fa-comments-o"></i>Live Chat</a>
+				<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
 	    	</div>
 	    </div>
 	</div>
 	
-	<h1>Hello, <span th:text="${name}"></span></h1>
+<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+<h1>Hello, <span th:text="${name}"></span></h1>
 	<div>Role: Job Poster</div>
-	<a th:href="@{/jobpost}">Post a job</a><br>
-	 <a th:href="@{/chat}">Go to Live Chat</a><br>
-	  <a th:href="@{/logout}">Logout</a>
-	  
-	
-<div th:if="${jobs != null}">
-<table border="1">
+	<br>
+<table class="w3-table" th:if="${jobs != null}">
+	<tr><th>Your current jobs<th></tr>
 	<tr>
 		<th>Job Title</th>
 		<th>Job Description</th>

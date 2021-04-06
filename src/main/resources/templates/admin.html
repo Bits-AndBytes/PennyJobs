@@ -16,11 +16,16 @@
 	    	<a th:href="@{/admin}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
 	    	<div class="w3-right w3-hide-small">
+	    		<a class="w3-bar-item w3-button w3-wide" th:href="@{/poster}">Poster homescreen</a>
+	    		<a class="w3-bar-item w3-button w3-wide" th:href="@{/student}">Student homescreen</a>
+	    		<a class="w3-bar-item w3-button w3-wide" th:href="@{/parent}">Parent homescreen</a>
 		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
 	    	</div>
 	    </div>
 	</div>
-	<h1>Hello, <span th:text="${name}"></span></h1>
-	<div>Role: Admin</div>
+	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+		<h1>Hello, <span th:text="${name}"></span></h1>
+		<div>Role: Admin</div>
+	</div>
 </body>
 </html>
