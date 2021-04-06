@@ -49,6 +49,13 @@ public class AccountController {
 		return encoder.encode(password);
 	}
 	
+	public String getName(Authentication auth) {
+		
+		Account account = accountRepo.findByEmail(auth.getName());
+
+		return account.getFirstName();
+	}
+	
 	@GetMapping("/login")
 	public String loadLoginPage() {
 		return "login.html"; //needs to be created for a custom login page
@@ -137,25 +144,31 @@ public class AccountController {
 	}
 	
 	@GetMapping("/student")
-	public String loadStudent() {
+	public String loadStudent(Authentication auth, Model model) {
+		
+		model.addAttribute("name", getName(auth));
+		
 		return "student.html";
 	}
 	
 	@GetMapping("/parent")
-	public String loadParent() {
+	public String loadParent(Authentication auth, Model model) {
+		
+		model.addAttribute("name", getName(auth));
+		
 		return "parent.html";
 	}
-	
 	/*
 	 * @GetMapping("/poster") public String loadPoster(){
 	 * 
 	 * return "poster.html"; }
 	 */
 	
-	
-	
 	@GetMapping("/admin")
-	public String loadAdmin() {
+	public String loadAdmin(Authentication auth, Model model) {
+		
+		model.addAttribute("name", getName(auth));
+		
 		return "admin.html";
 	}
 }
