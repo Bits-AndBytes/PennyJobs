@@ -23,7 +23,7 @@ public class Parent{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="parent")
+	@OneToOne(cascade=CascadeType.ALL)
 	private Account account;
 	
 	@OneToOne
