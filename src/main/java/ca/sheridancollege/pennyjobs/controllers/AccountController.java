@@ -77,6 +77,7 @@ public class AccountController {
 		
 		if (accountType.equals("Parent")) {
 			Parent p = new Parent();
+			p.setAccount(account);
 			account.setAccountType("P");
 			account.setParent(p);
 			account.getRoles().add(roleRepo.findByRolename("ROLE_PARENT"));
@@ -84,6 +85,7 @@ public class AccountController {
 		
 		else if (accountType.equals("Student")){
 			Student s = new Student();
+			s.setAccount(account);
 			account.setAccountType("S");
 			account.setStudent(s);
 			account.getRoles().add(roleRepo.findByRolename("ROLE_STUDENT"));
@@ -91,6 +93,7 @@ public class AccountController {
 		
 		else if (accountType.equals("Poster")){
 			JobPoster j = new JobPoster();
+			j.setAccount(account);
 			account.setAccountType("J");
 			account.setPoster(j);
 			account.getRoles().add(roleRepo.findByRolename("ROLE_POSTER"));

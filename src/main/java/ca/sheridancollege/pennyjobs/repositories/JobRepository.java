@@ -11,4 +11,8 @@ public interface JobRepository extends CrudRepository<Job, Integer> {
 
 	public List<Job> findByJobPosterId(int id);
 	
+	public List<Job> findAllByTitleIgnoreCaseContains(String title);
+	
+	public List<Job> findAllByDescriptionIgnoreCaseContains(String description);
+	
 }

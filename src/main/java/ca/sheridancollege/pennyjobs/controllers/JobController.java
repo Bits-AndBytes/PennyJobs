@@ -1,5 +1,8 @@
 package ca.sheridancollege.pennyjobs.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.sheridancollege.pennyjobs.beans.Account;
 import ca.sheridancollege.pennyjobs.beans.Job;
@@ -65,7 +69,7 @@ public class JobController {
 		
 		return "JobForm.html";
 	}
-	
+
 	@GetMapping("delete/{id}")
 	public String deletePlayer(@PathVariable int id, Model model, Authentication auth) {
 		Account account = accountRepo.findByEmail(auth.getName());
@@ -106,5 +110,29 @@ public class JobController {
 		return "poster.html";
 	}
 	
+	@GetMapping("/jobs")
+	public String leadSearch(Model model) {
+		
+		model.addAttribute("jobs", jRepo.findAll());
+		
+		return "jobs.html";
+	}
 	
+	@GetMapping("/jobs/search")
+	public String searchDB(Model model, @RequestParam String searchType, @RequestParam String query) {
+		
+		List<Job> results = new ArrayList<Job>();
+		
+		switch (searchType){
+		case "Title":
+			results = jRepo.findAllByTitleIgnoreCaseContains(query);
+			break;
+		case "Description":
+			results = jRepo.findAllByDescriptionIgnoreCaseContains(query);
+			break;
+		}
+		model.addAttribute("jobs", results);
+		
+		return "jobs.html";
+	}
 }
