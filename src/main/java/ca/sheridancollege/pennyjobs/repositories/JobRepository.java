@@ -1,5 +1,7 @@
 package ca.sheridancollege.pennyjobs.repositories;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 
 import ca.sheridancollege.pennyjobs.beans.Job;
@@ -7,6 +9,6 @@ import ca.sheridancollege.pennyjobs.beans.Job;
 
 public interface JobRepository extends CrudRepository<Job, Integer> {
 
-	public Job findByJobPosterId(int id);
+	public List<Job> findByJobPosterId(int id);
 	
 }

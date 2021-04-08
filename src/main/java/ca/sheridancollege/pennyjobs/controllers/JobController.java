@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ca.sheridancollege.pennyjobs.beans.Account;
@@ -53,16 +54,30 @@ public class JobController {
 			job.setJobPoster(jobposter);
 			
 			jRepo.save(job);
-			
+				
 			//added if statement so program wont crash
 			if (jobposter.getId() != null) {
 				model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
 			}
 		}
+				
 		model.addAttribute("job", new Job());
 		
 		return "JobForm.html";
 	}
+	
+	@GetMapping("delete/{id}")
+	public String deletePlayer(@PathVariable int id, Model model, Authentication auth) {
+		Account account = accountRepo.findByEmail(auth.getName());
+		JobPoster jobposter = account.getPoster();
+		jRepo.deleteById(id);
+		//added if statement so program wont crash
+		if (jobposter.getId() != null) {
+			model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
+		}
+		return "poster.html";
+	}
+	
 	
 	@GetMapping("/joblist")
 	public String loadJobList() {
@@ -90,4 +105,6 @@ public class JobController {
 		
 		return "poster.html";
 	}
+	
+	
 }
