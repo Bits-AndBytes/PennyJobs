@@ -32,7 +32,7 @@
 				Search query: 
 				<input type="text" name="query" id="searchBar" class="w3-input w3-border">
 			</label>
-			<div class="w3-button w3-black" style="pointer: cursor;">
+			<div class="w3-button w3-black" style="cursor: pointer;">
 				<input type="submit" value="Search" style="border: none; 
 				background: none; color: white;">
 				<span><i class="fa fa-search"></i></span>
@@ -52,6 +52,7 @@
 					<th>Postal Code</th>
 					<th>Under-age</th>
 					</tr>
+					
 				<tr th:each="j : ${jobs}">
 					<td th:text="${j.title}"></td>
 					<td th:text="${j.description}"></td>
@@ -61,8 +62,8 @@
 					<td th:text="${j.address.street}"></td>
 					<td th:text="${j.address.postalCode}"></td>
 					<td th:text="${j.underage}"></td>
-					
-					</tr>
+					<td><a th:href="@{/jobs/{jobid}(jobid=${j.id})}">Job details</a></td>
+				</tr>
 			</table>
 		</div>
 </body>

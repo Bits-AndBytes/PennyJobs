@@ -19,6 +19,7 @@ import ca.sheridancollege.pennyjobs.beans.JobPoster;
 import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobRepository;
+import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
 
 @Controller
 public class JobController {
@@ -28,6 +29,9 @@ public class JobController {
 	
 	@Autowired
 	private AccountRepository accountRepo;
+	
+	@Autowired
+	private StudentRepository studentRepo;
 	
 	@GetMapping("/")
 	public String loadRoot(Authentication auth) {
@@ -144,5 +148,45 @@ public class JobController {
 		model.addAttribute("jobs", results);
 		
 		return "jobs.html";
+	}
+	
+	@GetMapping("/jobs/{id}")
+	public String viewJob(@PathVariable int id, Model model, Authentication auth) {
+		boolean isStudent = false;
+		if (!jRepo.findById(id).isEmpty()) {
+			Job job = jRepo.findById(id).get();
+			model.addAttribute("job", job);
+			
+			//if the user viewing the jobs is a student pass that along so they can see the apply for job button
+			if (auth.isAuthenticated()) {
+				Account account = accountRepo.findByEmail(auth.getName());
+				if (account.getAccountType().equals("S")) {
+					isStudent = true;
+					System.out.println("isStudent value changed: " + isStudent);
+				}
+				
+			}
+			model.addAttribute("isStudent", isStudent);
+		} else {
+			return "jobs.html";
+		}
+		return "jobdetails.html";
+	}
+	
+	@GetMapping("/assign/{id}")
+	public String assignJob(@PathVariable int id, Model model, Authentication auth) {
+		
+		if (!jRepo.findById(id).isEmpty()) {
+			Job job = jRepo.findById(id).get();
+			
+			if (auth.isAuthenticated()) {
+				Account account = accountRepo.findByEmail(auth.getName());
+				Student student = studentRepo.findByAccount(account);
+				job.setStudent(student);
+				jRepo.save(job);
+			}
+		}
+		
+		return "redirect:/jobs";
 	}
 }
