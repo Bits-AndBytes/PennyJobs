@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ca.sheridancollege.pennyjobs.beans.Account;
 import ca.sheridancollege.pennyjobs.beans.Job;
 import ca.sheridancollege.pennyjobs.beans.JobPoster;
+import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobRepository;
 
@@ -82,10 +83,21 @@ public class JobController {
 		return "poster.html";
 	}
 	
-	
-	@GetMapping("/joblist")
-	public String loadJobList() {
-		return "viewjobs.html";
+	@GetMapping("/viewjobs")
+	public String loadJobList(Model model, Authentication auth) {
+		Account account = accountRepo.findByEmail(auth.getName());
+		model.addAttribute("name", account.getFirstName());
+		
+		//added if statement so program wont crash
+		if (account.getStudent() != null) {
+			Student student = account.getStudent();
+			
+			if (student.getId() != null) {
+				model.addAttribute("jobs", jRepo.findByJobPosterId(student.getId()));
+			}
+		}
+		
+		return "ViewMyJobs.html";
 	}
 	
 	@GetMapping("/poster")
@@ -94,8 +106,6 @@ public class JobController {
 		Account account = accountRepo.findByEmail(auth.getName());
 		
 		model.addAttribute("name", account.getFirstName());
-		
-		
 		
 		//added if statement so program wont crash
 		if (account.getPoster() != null) {
