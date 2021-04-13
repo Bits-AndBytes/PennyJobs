@@ -90,14 +90,13 @@ public class JobController {
 	@GetMapping("/viewjobs")
 	public String loadJobList(Model model, Authentication auth) {
 		Account account = accountRepo.findByEmail(auth.getName());
-		model.addAttribute("name", account.getFirstName());
 		
 		//added if statement so program wont crash
 		if (account.getStudent() != null) {
 			Student student = account.getStudent();
 			
 			if (student.getId() != null) {
-				model.addAttribute("jobs", jRepo.findByJobPosterId(student.getId()));
+				model.addAttribute("jobs", jRepo.findByStudentId(student.getId()));
 			}
 		}
 		
