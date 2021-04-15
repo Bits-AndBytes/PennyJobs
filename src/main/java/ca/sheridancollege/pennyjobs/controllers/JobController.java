@@ -161,7 +161,6 @@ public class JobController {
 				Account account = accountRepo.findByEmail(auth.getName());
 				if (account.getAccountType().equals("S")) {
 					isStudent = true;
-					System.out.println("isStudent value changed: " + isStudent);
 				}
 				
 			}
