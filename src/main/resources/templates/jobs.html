@@ -45,6 +45,7 @@
 				<tr>
 					<th>Job Title</th>
 					<th>Job Description</th>
+					<th>Price</th>
 					<th>Posted by</th>
 					<th>Province</th>
 					<th>City</th>
@@ -56,6 +57,7 @@
 				<tr th:each="j : ${jobs}">
 					<td th:text="${j.title}"></td>
 					<td th:text="${j.description}"></td>
+					<td th:text="'$' + ${j.price}"></td>
 					<td><span th:text="${j.jobPoster.account.firstName}" th:if="${j.jobPoster != null}">None</span></td>
 					<td th:text="${j.address.province}"></td>
 					<td th:text="${j.address.city}"></td>

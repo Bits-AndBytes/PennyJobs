@@ -33,6 +33,9 @@
 			<h3>Description: </h3>
 			<div th:text="${job.description}"></div>
 			
+			<h3>Price:</h3>
+			<div th:text="'$' + ${job.price}"></div>
+			
 			<h3>Posted by:</h3>
 			<div th:text="${job.jobPoster.account.firstName}"></div>
 			

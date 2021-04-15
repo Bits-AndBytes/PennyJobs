@@ -33,6 +33,7 @@
 	<tr>
 		<th>Job Title</th>
 		<th>Job Description</th>
+		<th>Price</th>
 		<th>Province</th>
 		<th>City</th>
 		<th>Street Address</th>
@@ -42,6 +43,7 @@
 	<tr th:each="j : ${jobs}">
 		<td th:text="${j.title}"></td>
 		<td th:text="${j.description}"></td>
+		<td th:text="'$' + ${j.price}"></td>
 		<td th:text="${j.address.province}"></td>
 		<td th:text="${j.address.city}"></td>
 		<td th:text="${j.address.street}"></td>
