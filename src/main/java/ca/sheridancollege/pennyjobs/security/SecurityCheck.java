@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -30,20 +29,19 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 				http.authorizeRequests()
 					//specific URL is restricted to the specific role
 					//antMatchers are for URLS not HTMLs
-					.antMatchers("/student").hasAnyRole("STUDENT", "ADMIN")
+					.antMatchers("/student", "/assign/**", "/viewjobs").hasAnyRole("STUDENT", "ADMIN")
 					.antMatchers("/parent").hasAnyRole("PARENT", "ADMIN")
-					.antMatchers("/poster").hasAnyRole("POSTER", "ADMIN")
+					.antMatchers("/poster", "/jobpost", "/delete/**").hasAnyRole("POSTER", "ADMIN")
+					.antMatchers("/jobs/**").hasAnyRole("STUDENT","PARENT","ADMIN","POSTER")
 					//this should permit anyone as it is just a redirect 
 					//and will only be loaded after authentication
 					.antMatchers("/accountredirectpage").permitAll()
 					.antMatchers("/admin").hasRole("ADMIN")
 					
-					.antMatchers("/register").permitAll()
-					.antMatchers(HttpMethod.POST, "/register").permitAll()			
-					.antMatchers("/h2-console/**").permitAll()
-					//http://localhost:8080/css/mycss.css
+					.antMatchers("/register", "/signup").permitAll()
+					.antMatchers(HttpMethod.POST, "/register").permitAll()
 					//everyone has access
-					.antMatchers("/", "/js/**", "/images/**", "/css/**", "/**").permitAll() 
+					.antMatchers("/", "/js/**", "/images/**", "/css/**").permitAll() 
 					.anyRequest().authenticated()
 					.and()
 					.formLogin()
