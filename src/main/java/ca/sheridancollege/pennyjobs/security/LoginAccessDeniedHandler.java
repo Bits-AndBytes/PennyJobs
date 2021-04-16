@@ -12,6 +12,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is for the security access denied functionality
+ * 
+ * @author Weiye Chen, Gregory Knott, Patrick Ferdinand Adhitama, Dimitrios Vlachos
+ *
+ */
 @Component
 public class LoginAccessDeniedHandler implements AccessDeniedHandler {
 

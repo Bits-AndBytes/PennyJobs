@@ -11,7 +11,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
+/**
+ * This class is used to set up the security that only allowed the required role
+ * can access the correct pages.
+ * 
+ * @author Weiye Chen, Gregory Knott, Patrick Ferdinand Adhitama, Dimitrios Vlachos
+ *
+ */
 
 @EnableWebSecurity
 public class SecurityCheck extends WebSecurityConfigurerAdapter{
@@ -21,11 +27,6 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		//********************************************
-				//This must be removed when creating production code
-				http.csrf().disable();
-				http.headers().frameOptions().disable();
-				//********************************************
 				http.authorizeRequests()
 					//specific URL is restricted to the specific role
 					//antMatchers are for URLS not HTMLs
@@ -63,6 +64,11 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 				
 
 	}
+	
+	/**
+	 * Method to Bcrypt Password Encoder
+	 * @return
+	 */
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
