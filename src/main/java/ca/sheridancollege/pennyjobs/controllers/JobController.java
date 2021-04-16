@@ -217,15 +217,12 @@ public class JobController {
 		if (!jRepo.findById(id).isEmpty()) {
 			Job job = jRepo.findById(id).get();
 			model.addAttribute("job", job);
-			
 			//if the user viewing the jobs is a student pass that along so they can see the apply for job button
 			if (auth.isAuthenticated()) {
 				Account account = accountRepo.findByEmail(auth.getName());
 				if (account.getAccountType().equals("S")) {
 					isStudent = true;
-					System.out.println("isStudent value changed: " + isStudent);
 				}
-				
 			}
 			model.addAttribute("isStudent", isStudent);
 		} else {

@@ -29,6 +29,8 @@ public class Job {
 
 	private String description;
 	
+	private double price;
+	
 	private String underage;
 
 	@ManyToOne
