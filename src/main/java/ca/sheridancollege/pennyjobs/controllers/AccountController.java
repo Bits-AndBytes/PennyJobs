@@ -93,7 +93,7 @@ public class AccountController {
 	public String loadSignUp(Model model, @ModelAttribute Account account) {
 		model.addAttribute("account", new Account());
 		
-		return "signUpPage.html"; //needs to be created
+		return "SignUpPage.html"; //needs to be created
 	}
 	
 	/**
