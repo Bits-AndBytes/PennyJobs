@@ -33,8 +33,8 @@ UPDATE job_poster SET account_id = (SELECT id FROM account WHERE poster_id = 1);
 
 
 --***JOB AD SAMPLE DATA***
-INSERT INTO job (title, description, province, city, street, postal_Code, underage, job_poster_id) 
-VALUES ('Lawn moving needed','In need of someone to mow my lawn', 'Ontario', 'Oakville', 'Randrom Street 123','L6M0M1', 'Yes', (SELECT id FROM job_poster WHERE id = 1));
+INSERT INTO job (title, description, price, province, city, street, postal_Code, underage, job_poster_id) 
+VALUES ('Lawn mowing needed','In need of someone to mow my lawn', 15.00 ,'Ontario', 'Oakville', 'Randrom Street 123','L6M0M1', 'Yes', (SELECT id FROM job_poster WHERE id = 1));
 
 
 --***Admin sample account (password is: admin)

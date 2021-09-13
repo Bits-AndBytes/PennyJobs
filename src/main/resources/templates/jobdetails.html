@@ -33,13 +33,17 @@
 			<h3>Description: </h3>
 			<div th:text="${job.description}"></div>
 			
+			<h3>Price:</h3>
+			<div th:text="'$' + ${job.price}"></div>
+			
 			<h3>Posted by:</h3>
 			<div th:text="${job.jobPoster.account.firstName}"></div>
 			
 			<h4>Would this be suitable for someone underage?</h4>
 			<div th:text="${job.underage}"></div>
 			
-			<a class="w3-button w3-black" th:if="${isStudent == true}" th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
+			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == null}" 
+			th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
 		</div>
 	</div>
 </body>

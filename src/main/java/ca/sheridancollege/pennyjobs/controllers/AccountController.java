@@ -24,6 +24,13 @@ import ca.sheridancollege.pennyjobs.repositories.ParentRepository;
 import ca.sheridancollege.pennyjobs.repositories.RoleRepository;
 import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
 
+/**
+ * This class is for controlling the account functionalities
+ * 
+ * @author Weiye Chen, Gregory Knott, Patrick Ferdinand Adhitama, Dimitrios Vlachos
+ *
+ */
+
 @Controller
 public class AccountController {
 	
@@ -42,12 +49,22 @@ public class AccountController {
 	@Autowired
 	private RoleRepository roleRepo;
 	
+	/**
+	 * It is a method to encrypt and SALT passwords to be stored in the database
+	 * @param password
+	 * @return
+	 */
 	
-	//create method to encrypt and SALT passwords to be stored in the database
 	public static String encrypt(String password) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.encode(password);
 	}
+	
+	/**
+	 * It is a method to get the user name base on the Email they assign in
+	 * @param auth
+	 * @return
+	 */
 	
 	public String getName(Authentication auth) {
 		
@@ -56,18 +73,37 @@ public class AccountController {
 		return account.getFirstName();
 	}
 	
+	/**
+	 * Load the login page
+	 * @return
+	 */
+	
 	@GetMapping("/login")
 	public String loadLoginPage() {
 		return "login.html"; //needs to be created for a custom login page
 	}
 	
+	/**
+	 * Load the sign up page for new user
+	 * @param model
+	 * @param account
+	 * @return
+	 */
 	@GetMapping("/signup")
 	public String loadSignUp(Model model, @ModelAttribute Account account) {
 		model.addAttribute("account", new Account());
 		
-		return "signUpPage.html"; //needs to be created
+		return "SignUpPage.html"; //needs to be created
 	}
 	
+	/**
+	 * This method is used to create a new account and based on the account to give
+	 * the user a role and store it in database
+	 * @param account
+	 * @param accountType
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/signup")
 	public String createAccount(@ModelAttribute Account account, 
 			@RequestParam String accountType, Model model) {
@@ -104,8 +140,15 @@ public class AccountController {
 		return "login.html"; //leads to user homepage
 	}
 	
-	//this is not meant to be seen by the user
-	//this will be the default mapping to be sent to once user has been validated
+	
+	/**
+	 * this is not meant to be seen by the user
+	 * this will be the default mapping to be sent to once user has been validated
+	 * @param auth
+	 * @param model
+	 * @return
+	 */
+	
 	@GetMapping("/accountredirectpage")
 	public String accountRedirect(Authentication auth, Model model) {
 		
@@ -140,11 +183,22 @@ public class AccountController {
 		return "redirect:/" + destination; //leads to user homepage
 	}
 	
-	//redirects user to this page when they are trying to
+	/**
+	 * redirects user to this page when they are trying to
+	 * @return
+	 */
+	
 	@GetMapping("/access-denied")
 	public String accessDenied() {
 		return "accessdenied.html";
 	}
+	
+	/**
+	 * Load the student's page
+	 * @param auth
+	 * @param model
+	 * @return
+	 */
 	
 	@GetMapping("/student")
 	public String loadStudent(Authentication auth, Model model) {
@@ -154,6 +208,13 @@ public class AccountController {
 		return "student.html";
 	}
 	
+	/**
+	 * Load the parent's page
+	 * @param auth
+	 * @param model
+	 * @return
+	 */
+	
 	@GetMapping("/parent")
 	public String loadParent(Authentication auth, Model model) {
 		
@@ -161,12 +222,13 @@ public class AccountController {
 		
 		return "parent.html";
 	}
-	/*
-	 * @GetMapping("/poster") public String loadPoster(){
-	 * 
-	 * return "poster.html"; }
-	 */
 	
+	/**
+	 * Load the admin's page
+	 * @param auth
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/admin")
 	public String loadAdmin(Authentication auth, Model model) {
 		
