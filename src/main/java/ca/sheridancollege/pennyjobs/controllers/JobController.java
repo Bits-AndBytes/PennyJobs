@@ -222,6 +222,8 @@ public class JobController {
 				Account account = accountRepo.findByEmail(auth.getName());
 				if (account.getAccountType().equals("S")) {
 					isStudent = true;
+					Student student = studentRepo.findByAccount(account);
+					model.addAttribute("student", student);
 				}
 			}
 			model.addAttribute("isStudent", isStudent);
@@ -253,5 +255,25 @@ public class JobController {
 		}
 		
 		return "redirect:/jobs";
+	}
+	
+	@GetMapping("/jobs/{id}/proof")
+	public String loadSubmitProof(@PathVariable int id, Model model, Authentication auth) {
+		
+		boolean isStudent = false;
+		if (!jRepo.findById(id).isEmpty()) {
+			Job job = jRepo.findById(id).get();
+			model.addAttribute("job", job);
+			//if the user viewing the jobs is a student pass that along so they can see the apply for job button
+			if (auth.isAuthenticated()) {
+				Account account = accountRepo.findByEmail(auth.getName());
+				if (account.getAccountType().equals("S")) {
+					isStudent = true;
+				}
+			}
+			model.addAttribute("isStudent", isStudent);
+		}
+		
+		return "submitproof.html";
 	}
 }

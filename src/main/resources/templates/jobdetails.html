@@ -26,7 +26,8 @@
 		<h1 th:text="${job.title}"></h1>
 		
 		<div th:if="${job.student != null}">
-			<div class="w3-red">This job is currently assigned to a student</div>
+			<div th:if="${job.getStudent != student}" class="w3-red">This job is currently assigned to a student</div>
+			<div th:if="${job.getStudent == student}" class="w3-black">This job is currently assigned to you</div>
 		</div>
 		
 		<div>
@@ -44,6 +45,9 @@
 			
 			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == null}" 
 			th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
+			
+			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == student}" 
+			th:href="@{/jobs/{jobid}/proof(jobid=${job.id})}">Submit proof of job completion</a>
 		</div>
 	</div>
 </body>
