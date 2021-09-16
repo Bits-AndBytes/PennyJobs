@@ -16,6 +16,14 @@ import org.springframework.stereotype.Service;
 import ca.sheridancollege.pennyjobs.beans.Role;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 
+/**
+ * This class is used to find a user when they login to check if they
+ * already exist
+ * 
+ * @author Weiye Chen, Gregory Knott, Patrick Ferdinand Adhitama, Dimitrios Vlachos
+ *
+ */
+
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
