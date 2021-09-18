@@ -27,11 +27,14 @@
 	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
 		<h1>Submit proof of completion</h1>
 		
-		<form th:action="#" enctype="multipart/form-data">
+		<form th:action="@{/uploadproof}" enctype="multipart/form-data" method="post">
+			<input type="hidden" name="jobId" th:value="${job.id}">
 			<label for="photo">
 				Photo:
-				<input type="file" accept="image/png, image/jpeg" name="photo" id="photo"/>
+				<input type="file" accept="image/png, image/jpeg" name="photo" id="photo" class="w3-button"/>
 			</label>
+			<br>
+			<input type="submit" value="Upload" class="w3-button w3-black"/>
 		</form>
 	</div>
 </body>

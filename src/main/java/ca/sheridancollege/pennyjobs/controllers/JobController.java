@@ -1,5 +1,11 @@
 package ca.sheridancollege.pennyjobs.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import antlr.StringUtils;
 import ca.sheridancollege.pennyjobs.beans.Account;
 import ca.sheridancollege.pennyjobs.beans.Job;
 import ca.sheridancollege.pennyjobs.beans.JobPoster;
@@ -276,4 +284,39 @@ public class JobController {
 		
 		return "submitproof.html";
 	}
+	
+	@PostMapping("/uploadproof")
+	public String uploadProof(@RequestParam("photo") MultipartFile imageProof, @RequestParam("jobId") int inputJobId, Model model) throws IOException {
+		System.out.println("\nbefore directory\n");
+		
+		String directory = "completed-job-photos/" + inputJobId;
+		
+		saveImage(directory, "completed-job-" + inputJobId +".jpg", imageProof);
+		
+		return "redirect:/jobs/" + inputJobId;
+	}
+	
+	public void saveImage(String directory, String fileName,
+            MultipartFile image) throws IOException {
+		
+        Path path = Paths.get(directory);
+         
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+         
+        try (InputStream stream = image.getInputStream()) {
+            Path resolvedPath = path.resolve(fileName);
+            Files.copy(stream, resolvedPath, StandardCopyOption.REPLACE_EXISTING);
+            
+            /*
+             * TODO
+             * - Add file path to Job database
+             * - allow user to access the image in browser
+             */
+            
+        } catch (IOException ex) {        
+            throw new IOException("Could not save image, Exception: " + ex);
+        }      
+    }
 }

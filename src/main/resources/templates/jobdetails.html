@@ -49,6 +49,11 @@
 			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == student}" 
 			th:href="@{/jobs/{jobid}/proof(jobid=${job.id})}">Submit proof of job completion</a>
 		</div>
+		
+		<div>
+		
+		<img th:src="${image}">
+		</div>
 	</div>
 </body>
 </html>
