@@ -106,8 +106,8 @@ public class JobController {
 	 * @param auth
 	 * @return
 	 */
-	@GetMapping("delete/{id}")
-	public String deletePlayer(@PathVariable int id, Model model, Authentication auth) {
+	@GetMapping("/delete/{id}")
+	public String deletePosting(@PathVariable int id, Model model, Authentication auth) {
 		Account account = accountRepo.findByEmail(auth.getName());
 		JobPoster jobposter = account.getPoster();
 		jRepo.deleteById(id);
@@ -115,7 +115,7 @@ public class JobController {
 		if (jobposter.getId() != null) {
 			model.addAttribute("jobs", jRepo.findByJobPosterId(jobposter.getId()));
 		}
-		return "poster.html";
+		return "redirect:/poster";
 	}
 	
 	/**
