@@ -26,6 +26,7 @@ import ca.sheridancollege.pennyjobs.beans.Job;
 import ca.sheridancollege.pennyjobs.beans.JobPoster;
 import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
+import ca.sheridancollege.pennyjobs.repositories.JobPosterRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobRepository;
 import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
 
@@ -45,6 +46,9 @@ public class JobController {
 	
 	@Autowired
 	private StudentRepository studentRepo;
+	
+	@Autowired
+	private JobPosterRepository posterRepo;
 	
 	/**
 	 * Redirect to the home page
@@ -233,6 +237,10 @@ public class JobController {
 					Student student = studentRepo.findByAccount(account);
 					model.addAttribute("student", student);
 				}
+				else if (account.getAccountType().equals("J")) {
+					JobPoster poster = posterRepo.findByAccount(account);
+					model.addAttribute("jobposter", poster);
+				}
 			}
 			model.addAttribute("isStudent", isStudent);
 		} else {
@@ -287,13 +295,26 @@ public class JobController {
 	
 	@PostMapping("/uploadproof")
 	public String uploadProof(@RequestParam("photo") MultipartFile imageProof, @RequestParam("jobId") int inputJobId, Model model) throws IOException {
-		System.out.println("\nbefore directory\n");
 		
-		String directory = "completed-job-photos/" + inputJobId;
+		Job job = jRepo.findById(inputJobId).get();
 		
-		saveImage(directory, "completed-job-" + inputJobId +".jpg", imageProof);
+		String directory = "completed-job-photos/" + job.getId();
+		
+		saveImage(directory, "completed-job-" + job.getId() +".jpg", imageProof);
+		
+		job.setProofSubmitted(true);
+		jRepo.save(job);
 		
 		return "redirect:/jobs/" + inputJobId;
+	}
+	
+	@PostMapping("/paystudent")
+	public String payStudent(Model model, @RequestParam("jobId") int jobId) {
+		
+		Job job = jRepo.findById(jobId).get();
+		model.addAttribute("job",job);
+		
+		return "paystudent.html";
 	}
 	
 	public void saveImage(String directory, String fileName,
@@ -319,4 +340,5 @@ public class JobController {
             throw new IOException("Could not save image, Exception: " + ex);
         }      
     }
+
 }
