@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>View jobs</title>
+<link rel="stylesheet" type="text/css" media="all" 
+			href="../static/css/w3.css"
+			th:href="@{/css/w3.css}"
+		/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+	<div class="w3-top">
+	<div class="w3-bar w3-white w3-card" id="myNavbar">
+
+		<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+
+		<div class="w3-right w3-hide-small">
+			<a class="w3-bar-item w3-button w3-wide" th:href="@{/jobs}"><i class="fa fa-search"></i>Browse Jobs</a>
+			<a class="w3-bar-item w3-button w3-wide"><i class="fa fa-child"></i>Child's jobs</a>
+			<a class="w3-bar-item w3-button w3-wide"><i class="fa fa-comments-o"></i>Live Chat</a>
+			<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
+		</div>
+	</div>
+</div>
+	
+	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+		<h1>Your current jobs</h1>
+		<table class="w3-table" th:if="${jobs != null}">
+			
+			<tr>
+				<th>Job Title</th>
+				<th>Job Description</th>
+				<th>Posted by</th>
+				<th>Province</th>
+				<th>City</th>
+				<th>Street Address</th>
+				<th>Postal Code</th>
+				<th>Under-age</th>
+				</tr>
+			<tr th:each="j : ${jobs}">
+				<td th:text="${j.title}"></td>
+				<td th:text="${j.description}"></td>
+				<td><span th:text="${j.jobPoster.account.firstName}" th:if="${j.jobPoster != null}">None</span></td>
+				<td th:text="${j.address.province}"></td>
+				<td th:text="${j.address.city}"></td>
+				<td th:text="${j.address.street}"></td>
+				<td th:text="${j.address.postalCode}"></td>
+				<td th:text="${j.underage}"></td>
+				
+				</tr>
+		</table>
+	</div>
+	
+</body>
+</html>
