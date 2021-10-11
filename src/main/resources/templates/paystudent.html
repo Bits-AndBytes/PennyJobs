@@ -7,10 +7,12 @@
 			href="../static/css/w3.css"
 			th:href="@{/css/w3.css}"
 		/>
+<link rel="stylesheet" type="text/css" media="all" 
+			href="../static/css/star-rating.css"
+			th:href="@{/css/star-rating.css}"
+		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script
-    		src="https://www.paypal.com/sdk/js?client-id=Ac2FNOwdiWiyZ0r305sc15nX_ADAsbuii7MpbcvCp6zn-sHJ6csAUUE1ByHUtHzONrUWPRZ5jgdz0R2Y">
-  	</script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 	<div class="w3-top">
@@ -25,18 +27,45 @@
 	</div>
 	
 	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
-		<a th:href="@{/jobs}"><i class="fa fa-arrow-left"></i>Back</a>
+		<a th:href="@{/jobs/{jobid}(jobid=${job.id})}"><i class="fa fa-arrow-left"></i>Back</a>
 		
 		<h1 th:text="'Pay student for job: ' + ${job.title}"></h1>
-		<img alt="" src=""><!-- Display student's proof of job completion image -->
+		<img alt="" th:src="@{../../images/completed-job-photos/{id}/completed-job-{id}.jpg(id=${job.id})}"><!-- Display student's proof of job completion image -->
 		
-		<div id="paypal-button-container"></div>
+		<h2>Student's PayPal/eTransfer email address:</h2>
+		<div th:text="${student.transferEmail}"></div>
+		
+		<hr>
+		
+		<h3>How did they do?</h3>
+		<div class="stars"> 
+		   <input type="radio" id="r1" name="rating" value="1"> 
+		   <label for="r1"></label> 
+		   <input type="radio" id="r2" name="rating" value="2"> 
+		   <label for="r2"></label> 
+		   <input type="radio" id="r3" name="rating" value="3"> 
+		   <label for="r3"></label> 
+		   <input type="radio" id="r4" name="rating" value="4"> 
+		   <label for="r4"></label> 
+		   <input type="radio" id="r5" name="rating" value="5"> 
+		   <label for="r5"></label> 
+  		</div>
 	</div>
-
-
-<script>
-    paypal.Buttons().render('#paypal-button-container');
-    // This function displays Smart Payment Buttons on your web page.
-  </script>
+	<script>
+	$('input[type="radio"]').click(function() {
+		  var theNumber = $(this).attr('id').slice(-1);
+		  $(this).siblings('label').each(function() {
+		    var sibNumber = $(this).attr('for').slice(-1);
+		    console.log("before if statement")
+		    if (sibNumber <= theNumber) {
+		    console.log("added class on")
+		      $(this).addClass('on');
+		    } else {
+		    console.log("removed class on")
+		      $(this).removeClass('on');
+		    }
+		  });
+		});
+	</script>
 </body>
 </html>

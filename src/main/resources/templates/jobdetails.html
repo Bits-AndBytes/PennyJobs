@@ -47,7 +47,7 @@
 			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == null}" 
 			th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
 			
-			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == student and job.proofSubmitted == false}" 
+			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == student and job.proofSubmitted != true}" 
 			th:href="@{/jobs/{jobid}/proof(jobid=${job.id})}">Submit proof of job completion</a>
 			
 			<form action="#" th:action="@{/paystudent}" method="post">

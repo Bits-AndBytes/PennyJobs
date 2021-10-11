@@ -208,6 +208,36 @@ public class AccountController {
 		return "student.html";
 	}
 	
+	@GetMapping("/student/profile")
+	public String loadStudentProfile(Authentication auth, Model model) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				model.addAttribute("student", student);
+				model.addAttribute("account", account);
+			}
+		}
+		
+		return "studentprofile.html";
+	}
+	
+	@PostMapping("/settransferemail")
+	public String setTransferEmail(@RequestParam("email") String email, Authentication auth) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				student.setTransferEmail(email);
+				studentRepo.save(student);
+			}
+		}
+		
+		return "redirect:/student/profile";
+	}
+	
 	/**
 	 * Load the parent's page
 	 * @param auth

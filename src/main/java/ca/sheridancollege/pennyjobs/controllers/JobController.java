@@ -1,5 +1,6 @@
 package ca.sheridancollege.pennyjobs.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -97,7 +98,7 @@ public class JobController {
 		if (account.getPoster() != null) {
 			JobPoster jobposter = account.getPoster();
 			job.setJobPoster(jobposter);
-			
+			job.setProofSubmitted(false);
 			jRepo.save(job);
 				
 			//added if statement so program wont crash
@@ -298,9 +299,11 @@ public class JobController {
 		
 		Job job = jRepo.findById(inputJobId).get();
 		
-		String directory = "completed-job-photos/" + job.getId();
+		String path = new File(".").getCanonicalPath() + "/webapps/ROOT/WEB-INF/images/completed-job-photos/" + job.getId() + "/";
 		
-		saveImage(directory, "completed-job-" + job.getId() +".jpg", imageProof);
+		//String directory = "completed-job-photos/" + job.getId();
+		
+		saveImage(path, "completed-job-" + job.getId() +".jpg", imageProof);
 		
 		job.setProofSubmitted(true);
 		jRepo.save(job);
@@ -309,10 +312,30 @@ public class JobController {
 	}
 	
 	@PostMapping("/paystudent")
-	public String payStudent(Model model, @RequestParam("jobId") int jobId) {
+	public String payStudent(Model model, @RequestParam("jobId") int jobId, Authentication auth) throws IOException {
 		
 		Job job = jRepo.findById(jobId).get();
 		model.addAttribute("job",job);
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("J")) {
+				model.addAttribute("account", account);
+				
+				Student student = job.getStudent();
+				model.addAttribute("student", student);
+			}
+		}
+		
+		String path = new File(".").getCanonicalPath() + "/webapps/ROOT/WEB-INF/images/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
+
+//		Path path = Paths.get("completed-job-photos/" + jobId);
+//		if (Files.exists(path)){
+//			
+//			Path resolvedPath = path.resolve("completed-job-" + job.getId() +".jpg");
+//			
+			model.addAttribute("image", path);
+//		}
 		
 		return "paystudent.html";
 	}
@@ -329,13 +352,7 @@ public class JobController {
         try (InputStream stream = image.getInputStream()) {
             Path resolvedPath = path.resolve(fileName);
             Files.copy(stream, resolvedPath, StandardCopyOption.REPLACE_EXISTING);
-            
-            /*
-             * TODO
-             * - Add file path to Job database
-             * - allow user to access the image in browser
-             */
-            
+
         } catch (IOException ex) {        
             throw new IOException("Could not save image, Exception: " + ex);
         }      

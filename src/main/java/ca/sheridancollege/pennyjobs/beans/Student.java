@@ -1,5 +1,6 @@
 package ca.sheridancollege.pennyjobs.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,4 +32,7 @@ public class Student {
 	private double rating;
 	
 	private String bio;
+	
+	@Column(nullable=true)
+	private String transferEmail;
 }
