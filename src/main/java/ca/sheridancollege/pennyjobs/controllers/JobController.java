@@ -300,11 +300,9 @@ public class JobController {
 		
 		Job job = jRepo.findById(inputJobId).get();
 		
-		String path = new File(".").getCanonicalPath() + "/webapps/ROOT/WEB-INF/images/completed-job-photos/" + job.getId() + "/";
+		String directory = "webapps/ROOT/completed-job-photos/" + job.getId();
 		
-		//String directory = "completed-job-photos/" + job.getId();
-		
-		saveImage(path, "completed-job-" + job.getId() +".jpg", imageProof);
+		saveImage(directory, "completed-job-" + job.getId() +".jpg", imageProof);
 		
 		job.setProofSubmitted(true);
 		jRepo.save(job);
@@ -328,12 +326,14 @@ public class JobController {
 			}
 		}
 		
-		String path = new File(".").getCanonicalPath() + "/webapps/ROOT/WEB-INF/images/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
-
+		//String path = new File(".").getCanonicalPath() + "/webapps/ROOT/WEB-INF/images/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
+//
 //		Path path = Paths.get("completed-job-photos/" + jobId);
 //		if (Files.exists(path)){
 //			
 //			Path resolvedPath = path.resolve("completed-job-" + job.getId() +".jpg");
+		
+		String path = "/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
 //			
 			model.addAttribute("image", path);
 //		}

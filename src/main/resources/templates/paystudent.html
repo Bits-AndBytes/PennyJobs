@@ -30,7 +30,7 @@
 		<a th:href="@{/jobs/{jobid}(jobid=${job.id})}"><i class="fa fa-arrow-left"></i>Back</a>
 		
 		<h1 th:text="'Pay student for job: ' + ${job.title}"></h1>
-		<img alt="" th:src="@{../../images/completed-job-photos/{id}/completed-job-{id}.jpg(id=${job.id})}"><!-- Display student's proof of job completion image -->
+		<img alt="" th:src="@{${image}}"><!-- Display student's proof of job completion image -->
 		
 		<h2>Student's PayPal/eTransfer email address:</h2>
 		<div th:if="${student.transferEmail != null || student.transferEmail != ''}" th:text="${student.transferEmail}"></div>
