@@ -44,12 +44,12 @@
 } */
 
 
-label:before {
+.stars label:before {
   content: '☆';
   color: gold;
   font-size: 2em;
 }
-label.on:before {
+.stars label.on:before {
   content: '★';
   color: gold;
   /* uncomment for iOS */
@@ -57,7 +57,7 @@ label.on:before {
   top: -0.1em;
   left: -0.1em; */
 }
-input:checked + label:before {
+.stars input:checked + label:before {
   content: '★'; 
   color: gold;
   /* uncomment for iOS */
@@ -65,24 +65,22 @@ input:checked + label:before {
   top: -0.1em;
   left: -0.1em; */
 }
-label {  
+.stars label {  
   display: inline-block;  
-  cursor: pointer;  
-  position: relative;  
+  cursor: pointer;
   padding-left: 25px;  
   margin-right: 15px;  
   font-size: 20px; 
 }
-label:before {
+.stars label:before {
   display: inline-block;
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  position: absolute;
   left: 0;
   border-radius: 10px;
 }
-input[type=radio] {
+.stars input[type=radio] {
   display: none;
   -webkit-appearance: none;
 }

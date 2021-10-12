@@ -99,6 +99,7 @@ public class JobController {
 			JobPoster jobposter = account.getPoster();
 			job.setJobPoster(jobposter);
 			job.setProofSubmitted(false);
+			job.setStudentPaid(false);
 			jRepo.save(job);
 				
 			//added if statement so program wont crash

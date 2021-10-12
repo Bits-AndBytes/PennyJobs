@@ -29,6 +29,8 @@
 			<div th:if="${job.getStudent != student  and job.proofSubmitted == false}" class="w3-red">This job is currently assigned to a student</div>
 			<div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">This job is currently assigned to you</div>
 			<div th:if="${job.proofSubmitted == true}" class="w3-green">This job has been completed</div>
+			<div th:if="${job.studentPaid != true and job.proofSubmitted == false}" class="w3-red">The student has not been paid for this job</div>
+			<div th:if="${job.studentPaid == true and job.proofSubmitted == false}" class="w3-green">The student has been paid for this job</div>
 		</div>
 		
 		<div>

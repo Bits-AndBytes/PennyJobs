@@ -22,10 +22,11 @@
 	    </div>
 	</div>
 	
-	<div  class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle w3-border">
+		<br>
 		<a th:href="@{/}"><i class="fa fa-arrow-left"></i>Back</a>
 		<h1>Post a job now!</h1>
-	 	<form action="#" th:action="@{/jobpost}" th:object="${job}" method="post">
+	 	<form action="#" th:action="@{/jobpost}" th:object="${job}" method="post" style="margin: 2em">
 	 	
 	 	<label for="title">
 	 		Job title:
@@ -87,7 +88,7 @@
 	 	
 	 	<br>
 	 	
-		 	<input type="submit" value="Post Job" class="w3-button w3-black"/> <br>
+		 <input type="submit" value="Post Job" class="w3-button w3-black"/> <br>
 		 
 	 </form>
 	</div>

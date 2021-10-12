@@ -45,6 +45,9 @@ public class Job {
 	@Column(nullable=true)
 	private Boolean proofSubmitted;
 	
+	@Column(nullable=true)
+	private Boolean studentPaid;
+	
 	@Transient
 	private String[] underageOptions = {"Yes", "No"};
 	
