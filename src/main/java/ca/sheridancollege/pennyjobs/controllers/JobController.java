@@ -326,17 +326,9 @@ public class JobController {
 			}
 		}
 		
-		//String path = new File(".").getCanonicalPath() + "/webapps/ROOT/WEB-INF/images/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
-//
-//		Path path = Paths.get("completed-job-photos/" + jobId);
-//		if (Files.exists(path)){
-//			
-//			Path resolvedPath = path.resolve("completed-job-" + job.getId() +".jpg");
-		
 		String path = "/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
-//			
-			model.addAttribute("image", path);
-//		}
+			
+		model.addAttribute("image", path);
 		
 		return "paystudent.html";
 	}
