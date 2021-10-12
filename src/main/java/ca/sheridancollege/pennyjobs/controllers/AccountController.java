@@ -203,8 +203,14 @@ public class AccountController {
 	@GetMapping("/student")
 	public String loadStudent(Authentication auth, Model model) {
 		
-		model.addAttribute("name", getName(auth));
-		
+		if (auth.isAuthenticated()) {
+			model.addAttribute("name", getName(auth));
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				model.addAttribute("student", student);
+			}
+		}
 		return "student.html";
 	}
 	
@@ -222,6 +228,44 @@ public class AccountController {
 		
 		return "studentprofile.html";
 	}
+	
+	@GetMapping("/student/edit")
+	public String loadEditStudent(Authentication auth, Model model) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				model.addAttribute("account", account);
+				model.addAttribute("student", student);
+			}
+		}
+		
+		return "editstudent.html";
+	}
+	
+	@PostMapping("/student/modify")
+	public String modifyStudent(@RequestParam int studentId, @RequestParam int accountId ,@RequestParam String firstName,
+			@RequestParam String lastName, @RequestParam String bio, @RequestParam String transferEmail) {
+		//Replace existing student object with updated values
+		
+		
+		Student student = studentRepo.findById(studentId).get();
+		Account account = accountRepo.findById(accountId).get();
+		
+		student.setBio(bio);
+		student.setTransferEmail(transferEmail);
+		
+		studentRepo.save(student);
+		
+		account.setFirstName(firstName);
+		account.setLastName(lastName);
+		
+		accountRepo.save(account);
+		
+		return "redirect:/student/profile";
+	}
+	
 	
 	@PostMapping("/settransferemail")
 	public String setTransferEmail(@RequestParam("email") String email, Authentication auth) {

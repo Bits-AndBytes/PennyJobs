@@ -26,6 +26,9 @@
 	</div>
 
 	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+		<div class="w3-red" th:if="${student.transferEmail == null || student.transferEmail == ''}">
+		You have not connected a transfer email yet!
+		</div>
 		<h1>Hello, <span th:text="${name}"></span></h1>
 		<div>Role: Student</div>
 	</div>
