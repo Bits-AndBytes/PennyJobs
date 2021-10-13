@@ -25,6 +25,7 @@ import antlr.StringUtils;
 import ca.sheridancollege.pennyjobs.beans.Account;
 import ca.sheridancollege.pennyjobs.beans.Job;
 import ca.sheridancollege.pennyjobs.beans.JobPoster;
+import ca.sheridancollege.pennyjobs.beans.Parent;
 import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobPosterRepository;
@@ -133,26 +134,46 @@ public class JobController {
 	}
 	
 	/**
-	 * This method is allowed student to view the jobs applied
+	 * This method is allowed student and stundents'parent to view the jobs applied
 	 * @param model
 	 * @param auth
 	 * @return
 	 */
 	@GetMapping("/viewjobs")
-	public String loadJobList(Model model, Authentication auth) {
-		Account account = accountRepo.findByEmail(auth.getName());
-		
+	public String loadJobList(Model model, Authentication auth, String email) {
+		Account account = new Account();
+		// Check if email is there, that means this method is called from parent side
+		if(email != null && email != "")
+		{
+			account = accountRepo.findByEmail(email);
+			// if student not found then redirect to parent page with error message
+			if(account == null)
+			{
+				model.addAttribute("error", "No email found, please try again.");
+				return "parent.html";
+			}
+		}
+		else
+		{
+			account = accountRepo.findByEmail(auth.getName());
+		}
+
 		//added if statement so program wont crash
-		if (account.getStudent() != null) {
+		if (account.getStudent() != null ) {
 			Student student = account.getStudent();
 			
 			if (student.getId() != null) {
 				model.addAttribute("jobs", jRepo.findByStudentId(student.getId()));
 			}
 		}
-		
-		return "ViewMyJobs.html";
+
+		// if email is there then we will redirect to view child page
+		if(email != null && email != "")
+			return "ViewChildJobs.html";
+		else
+			return "ViewMyJobs.html";
 	}
+	
 	
 	/**
 	 * Home page for the poster's page
