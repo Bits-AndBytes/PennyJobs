@@ -55,7 +55,9 @@
 			<form action="#" th:action="@{/paystudent}" method="post">
 			
 				<input type="hidden" name="jobId" th:value="${job.id}">
-				<input type="submit" class="w3-button w3-black" th:if="${job.getJobPoster == jobposter and job.proofSubmitted == true}" value="Pay student for this job"></input>
+				<input type="submit" class="w3-button w3-black" 
+				th:if="${job.getJobPoster == jobposter and job.proofSubmitted == true and job.studentPaid != true}" 
+				value="Pay student for this job"></input>
 			</form>
 		</div>
 		

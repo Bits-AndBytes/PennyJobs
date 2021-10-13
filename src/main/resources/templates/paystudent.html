@@ -31,7 +31,7 @@
 		<a th:href="@{/jobs/{jobid}(jobid=${job.id})}"><i class="fa fa-arrow-left"></i>Back</a>
 		
 		<h1 th:text="'Pay student for job: ' + ${job.title}"></h1>
-		<img alt="" class="w3-image w3-center w3-padding" style="width:50%" th:src="@{${image}}" ><!-- Display student's proof of job completion image -->
+		<img alt="" class="w3-image w3-center w3-padding" style="width:50%" th:src="@{${job.imagePath}}" ><!-- Display student's proof of job completion image -->
 		
 		<h2>Student's PayPal/eTransfer email address:</h2>
 		<div th:if="${student.transferEmail != null || student.transferEmail != ''}" th:text="${student.transferEmail}"></div>
@@ -41,7 +41,8 @@
 		
 		<h3>How did they do?</h3>
 		
-		<form style="margin: 2em">
+		<form style="margin: 2em" th:action="@{/review}" method="post">
+			<input type="hidden" name="jobId" th:value="${job.id}">
 			<div class="stars"> 
 			   <input type="radio" id="r1" name="rating" value="1"> 
 			   <label for="r1"></label> 
@@ -57,8 +58,8 @@
 	  		<br>
 	  		<label for="paid">
 	  			<input type="checkbox" name="paid" id="paid" required> Did you pay the student?
+	  			<br>
 	  		</label>
-	  		<br>
 	  		<input class="w3-button w3-black" type="submit" value="Submit">
 	  		<br>
   		</form>

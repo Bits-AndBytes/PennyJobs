@@ -326,11 +326,40 @@ public class JobController {
 			}
 		}
 		
-		String path = "/completed-job-photos/" + jobId + "/completed-job-" + jobId + ".jpg";
-			
-		model.addAttribute("image", path);
-		
 		return "paystudent.html";
+	}
+	
+	@PostMapping("/review")
+	public String reviewStudent(@RequestParam("jobId") int jobId, 
+			@RequestParam("rating") int rating, @RequestParam("paid") boolean paid){
+		
+		Job job = jRepo.findById(jobId).get();
+		Student student = job.getStudent();
+		
+		if (paid) {
+			job.setStudentPaid(true);
+			jRepo.save(job);
+		}
+		
+		//Calculate and set new overall student rating
+		
+		//Get list of all jobs completed by student
+		List<Job> studentJobs = jRepo.findByStudentId(student.getId());
+		int completedJobs = 0;
+		
+		//Get number of completed jobs 
+		for (Job j : studentJobs) {
+			if (j.getStudentPaid() == true) {
+				completedJobs++;
+			}
+		}
+		double ratingAverage = (rating - student.getRating()) / completedJobs;
+		double newRating = student.getRating() + ratingAverage;
+		
+		student.setRating(newRating);
+		studentRepo.save(student);
+		
+		return "redirect:/jobs/" + jobId;
 	}
 	
 	public void saveImage(String directory, String fileName,

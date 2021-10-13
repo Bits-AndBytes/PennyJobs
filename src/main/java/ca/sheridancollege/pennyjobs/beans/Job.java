@@ -51,4 +51,8 @@ public class Job {
 	@Transient
 	private String[] underageOptions = {"Yes", "No"};
 	
+	public String getImagePath() {
+		return "/completed-job-photos/" + id + "/completed-job-" + id + ".jpg";
+	}
+	
 }
