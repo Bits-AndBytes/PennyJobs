@@ -30,12 +30,31 @@
 		You have not connected a transfer email yet!
 		You will not be able to receive money until you do so
 		</div>
+		
 		<h1>Hello, <span th:text="${name}"></span></h1>
 		<div>Role: Student</div>
+		
+		<br>
+		
+		<div class="w3-grey" th:if="${parentEmail != null and student.parent == null}" style="padding: 1.2em">
+			<h3>You have received a request to link your account!</h3>
+			<p>
+				The email is: <span th:text="${parentEmail}"></span>
+				Only accept if you recognize this email!
+			</p>
+			<br>
+			<div style="padding: 0em 1em 3em 0em">
+				<form class="w3-half" method="post" th:action="@{/acceptlink}">
+					<input type="hidden" th:value="${student.id}" name="studentId">
+					<input type="submit" class="w3-button w3-black" value="Accept">
+				</form>
+				
+				<form class="w3-half" method="post" th:action="@{/declinelink}">
+					<input type="hidden" th:value="${student.id}" name="studentId">
+					<input type="submit" class="w3-button w3-black" value="Decline">
+				</form>
+			</div>
+		</div>
 	</div>
-	
-	 
-	 
-	 
 </body>
 </html>

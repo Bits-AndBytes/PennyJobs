@@ -27,22 +27,22 @@
 	</div>
 	
 	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
-	<h1>Hello, <span th:text="${name}"></span></h1>
-	<div>Role: Parent</div>
-	<div>Do you want to connect with your children? Please enter his/her email!</div>
-		<form action="#" th:action="@{/viewjobs}" method="get">
-
-		<label for="email">
-	 			<input type="email" class="w3-input w3-border" name="email" id="email" required/>
-				<input type="submit" value="Submit" class="w3-button w3-black"/>
-	 		</label>
-		</form>
-		<br>
-		<div th:if="${error}">
-			<div class="alert w3-red">
-				<span th:text="${error}"></span>
+		<div th:if="${message != null}">
+			<div class="alert w3-grey">
+				<span th:text="${message}"></span>
 			</div>
 		</div>
+		<h1>Hello, <span th:text="${name}"></span></h1>
+		<div>Role: Parent</div>
+		
+		<form action="#" th:action="@{/requestlink}" method="post" th:if="${parent.student == null}">
+			<div>Do you want to connect your account with your child's? Please enter their email!</div>
+			<input type="hidden" name="parentId" th:value="${parent.id}">
+			<label for="email">
+		 		<input type="email" class="w3-input w3-border" name="email" id="email" required/>
+		 	</label>
+		 	<input type="submit" value="Submit" class="w3-button w3-black"/>
+		</form>
 	 </div>
 </body>
 </html>

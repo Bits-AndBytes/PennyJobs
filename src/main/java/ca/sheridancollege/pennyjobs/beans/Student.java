@@ -1,5 +1,6 @@
 package ca.sheridancollege.pennyjobs.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Student {
 	@OneToOne
 	private Account account;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL) 
 	private Parent parent;
 	
 	private double rating;
@@ -35,4 +36,7 @@ public class Student {
 	
 	@Column(nullable=true)
 	private String transferEmail;
+	
+	@Column(nullable=true)
+	private Integer requestedToLink;
 }

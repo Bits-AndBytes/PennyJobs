@@ -140,38 +140,19 @@ public class JobController {
 	 * @return
 	 */
 	@GetMapping("/viewjobs")
-	public String loadJobList(Model model, Authentication auth, String email) {
-		Account account = new Account();
-		// Check if email is there, that means this method is called from parent side
-		if(email != null && email != "")
-		{
-			account = accountRepo.findByEmail(email);
-			// if student not found then redirect to parent page with error message
-			if(account == null)
-			{
-				model.addAttribute("error", "No email found, please try again.");
-				return "parent.html";
-			}
-		}
-		else
-		{
-			account = accountRepo.findByEmail(auth.getName());
-		}
-
+	public String loadJobList(Model model, Authentication auth) {
+		Account account = accountRepo.findByEmail(auth.getName());
+		
 		//added if statement so program wont crash
-		if (account.getStudent() != null ) {
+		if (account.getStudent() != null) {
 			Student student = account.getStudent();
 			
 			if (student.getId() != null) {
 				model.addAttribute("jobs", jRepo.findByStudentId(student.getId()));
 			}
 		}
-
-		// if email is there then we will redirect to view child page
-		if(email != null && email != "")
-			return "ViewChildJobs.html";
-		else
-			return "ViewMyJobs.html";
+		
+		return "ViewMyJobs.html";
 	}
 	
 	
