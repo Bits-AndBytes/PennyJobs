@@ -1,5 +1,6 @@
 package ca.sheridancollege.pennyjobs.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+
+import com.sun.istack.Nullable;
 
 import lombok.*;
 
@@ -39,7 +42,17 @@ public class Job {
 	@ManyToOne
 	private Student student;
 	
+	@Column(nullable=true)
+	private Boolean proofSubmitted;
+	
+	@Column(nullable=true)
+	private Boolean studentPaid;
+	
 	@Transient
 	private String[] underageOptions = {"Yes", "No"};
+	
+	public String getImagePath() {
+		return "/completed-job-photos/" + id + "/completed-job-" + id + ".jpg";
+	}
 	
 }

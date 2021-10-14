@@ -203,9 +203,91 @@ public class AccountController {
 	@GetMapping("/student")
 	public String loadStudent(Authentication auth, Model model) {
 		
-		model.addAttribute("name", getName(auth));
-		
+		if (auth.isAuthenticated()) {
+			model.addAttribute("name", getName(auth));
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				model.addAttribute("student", student);
+				
+				if (student.getRequestedToLink() != null) {
+					int parentId = student.getRequestedToLink();
+					Parent parent = parentRepo.findById(parentId).get();
+					
+					model.addAttribute("parent", parent);
+					model.addAttribute("parentEmail", parent.getAccount().getEmail());
+				}
+			}
+		}
 		return "student.html";
+	}
+	
+	@GetMapping("/student/profile")
+	public String loadStudentProfile(Authentication auth, Model model) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				model.addAttribute("student", student);
+				model.addAttribute("account", account);
+			}
+		}
+		
+		return "studentprofile.html";
+	}
+	
+	@GetMapping("/student/edit")
+	public String loadEditStudent(Authentication auth, Model model) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				model.addAttribute("account", account);
+				model.addAttribute("student", student);
+			}
+		}
+		
+		return "editstudent.html";
+	}
+	
+	@PostMapping("/student/modify")
+	public String modifyStudent(@RequestParam int studentId, @RequestParam int accountId ,@RequestParam String firstName,
+			@RequestParam String lastName, @RequestParam String bio, @RequestParam String transferEmail) {
+		//Replace existing student object with updated values
+		
+		
+		Student student = studentRepo.findById(studentId).get();
+		Account account = accountRepo.findById(accountId).get();
+		
+		student.setBio(bio);
+		student.setTransferEmail(transferEmail);
+		
+		studentRepo.save(student);
+		
+		account.setFirstName(firstName);
+		account.setLastName(lastName);
+		
+		accountRepo.save(account);
+		
+		return "redirect:/student/profile";
+	}
+	
+	
+	@PostMapping("/settransferemail")
+	public String setTransferEmail(@RequestParam("email") String email, Authentication auth) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("S")) {
+				Student student = studentRepo.findByAccount(account);
+				student.setTransferEmail(email);
+				studentRepo.save(student);
+			}
+		}
+		
+		return "redirect:/student/profile";
 	}
 	
 	/**
@@ -218,7 +300,14 @@ public class AccountController {
 	@GetMapping("/parent")
 	public String loadParent(Authentication auth, Model model) {
 		
-		model.addAttribute("name", getName(auth));
+		if (auth.isAuthenticated()) {
+			model.addAttribute("name", getName(auth));
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("P")) {
+				Parent parent = parentRepo.findByAccount(account);
+				model.addAttribute("parent", parent);
+			}
+		}
 		
 		return "parent.html";
 	}
@@ -236,4 +325,68 @@ public class AccountController {
 		
 		return "admin.html";
 	}
+	
+	@PostMapping("/requestlink")
+	public String requestEmailLink(Model model, @RequestParam("email") String email, @RequestParam("parentId") int parentId) {
+
+		Parent parent = parentRepo.findById(parentId).get();
+		
+		if(accountRepo.findByEmail(email) != null) {
+		
+			//Fetch account from given email
+			Account studentAccount = accountRepo.findByEmail(email);
+			
+			//If account from email is a student account
+			if (studentAccount.getAccountType().equals("S")) {
+				
+				Student student = studentRepo.findByAccount(studentAccount);
+				
+				if (student.getParent() == null) {
+				
+					//Puts parent account inside non null table entry
+					student.setRequestedToLink(parentId);
+					
+					studentRepo.save(student);
+					
+					model.addAttribute("message","Successfully sent link request!");
+				}
+				
+				else {
+					model.addAttribute("message","Student account is already linked to a parent");
+				}
+				
+			} else {
+				model.addAttribute("message","Email is not linked to a student account.");
+			}
+		}
+		
+		model.addAttribute("parent", parent);
+		
+		return "parent.html";
+	}
+	
+	@PostMapping("/acceptlink")
+	public String acceptLinkRequest(@RequestParam("studentId") int studentId, Model model) {
+		
+		Student student = studentRepo.findById(studentId).get();
+		Parent parent = parentRepo.findById(student.getRequestedToLink()).get();
+		
+		student.setParent(parent);
+		parent.setStudent(student);
+		student.setRequestedToLink(null);
+		studentRepo.save(student);
+		
+		return "redirect:/";
+	}
+	
+	@PostMapping("/declinelink")
+	public String denyLinkRequest(@RequestParam("studentId") int studentId, Model model) {
+		
+		Student student = studentRepo.findById(studentId).get();
+		student.setRequestedToLink(null);
+		studentRepo.save(student);
+		
+		return "redirect:/";
+	}
+	
 }
