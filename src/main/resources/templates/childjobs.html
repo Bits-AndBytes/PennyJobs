@@ -50,7 +50,7 @@
 					<td th:text="${j.address.street}"></td>
 					<td th:text="${j.address.postalCode}"></td>
 					<td th:text="${j.underage}"></td>
-					
+					<td><a th:href="@{/jobs/{jobid}(jobid=${j.id})}">Job details</a></td>
 				</tr>
 			</table>
 		</div>
