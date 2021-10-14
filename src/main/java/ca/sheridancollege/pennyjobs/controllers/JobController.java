@@ -30,6 +30,7 @@ import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobPosterRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobRepository;
+import ca.sheridancollege.pennyjobs.repositories.ParentRepository;
 import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
 
 /**
@@ -51,6 +52,9 @@ public class JobController {
 	
 	@Autowired
 	private JobPosterRepository posterRepo;
+	
+	@Autowired
+	private ParentRepository parentRepo;
 	
 	/**
 	 * Redirect to the home page
@@ -275,6 +279,28 @@ public class JobController {
 		}
 		
 		return "redirect:/jobs";
+	}
+	
+	@GetMapping("/parent/studentjobs")
+	public String loadStudentJobs(Model model, Authentication auth) {
+		
+		if (auth.isAuthenticated()) {
+			Account account = accountRepo.findByEmail(auth.getName());
+			if (account.getAccountType().equals("P")) {
+				Parent parent = parentRepo.findByAccount(account);
+				
+				if (parent.getStudent() != null) {
+				
+					List studentJobs = jRepo.findByStudentId(parent.getStudent().getId());
+					
+					if (!studentJobs.isEmpty()) {
+						model.addAttribute("jobs", studentJobs);
+					}
+				}
+			}
+		}
+		
+		return "childjobs.html";
 	}
 	
 	@GetMapping("/jobs/{id}/proof")
