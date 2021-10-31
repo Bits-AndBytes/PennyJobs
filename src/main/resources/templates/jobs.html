@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
 	<div class="w3-top">
-		<div class="w3-bar w3-white w3-card" id="myNavbar">
-		
+		<div class="w3-bar w3-card" id="myNavbar">		
 	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
 	    	<div class="w3-right w3-hide-small">
@@ -21,26 +21,27 @@
 	    </div>
 	</div>
 	
-	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
-		<h1>Search a job</h1>
-		<form th:action="@{/jobs/search}">
-			<select name="searchType" class="w3-select">
-				<option>Title</option>
-				<option>Description</option>
-			</select>
-			<label for="searchBar">
-				Search query: 
-				<input type="text" name="query" id="searchBar" class="w3-input w3-border">
-			</label>
-			<div class="w3-button w3-black" style="cursor: pointer;">
-				<input type="submit" value="Search" style="border: none; 
-				background: none; color: white;">
-				<span><i class="fa fa-search"></i></span>
-			</div>
+	<div style="height:100%; background-color:#00CED1">
+		<div class="w3-white w3-display-container w3-grayscale-min w3-center w3-display-middle" style="padding:40px">
+			<h1>Search a job</h1>
 			
-		</form>
-		
-			<table class="w3-table" th:if="${jobs != null}">
+			<form th:action="@{/jobs/search}">
+				<select name="searchType" class="w3-select">
+					<option>Title</option>
+					<option>Description</option>
+				</select>
+				<label for="searchBar">
+					Search query: 
+					<input type="text" name="query" id="searchBar" class="w3-input w3-border">
+				</label>
+				<div class="w3-button w3-black" style="cursor: pointer;">
+					<input type="submit" value="Search" style="border: none; 
+					background: none; color: white;">
+					<span><i class="fa fa-search"></i></span>
+				</div>				
+			</form>
+			
+			<table class="w3-table-all" th:if="${jobs != null}">
 				<tr>
 					<th>Job Title</th>
 					<th>Job Description</th>
@@ -51,8 +52,7 @@
 					<th>Street Address</th>
 					<th>Postal Code</th>
 					<th>Under-age</th>
-					</tr>
-					
+				</tr>					
 				<tr th:each="j : ${jobs}">
 					<td th:text="${j.title}"></td>
 					<td th:text="${j.description}"></td>
@@ -67,5 +67,21 @@
 				</tr>
 			</table>
 		</div>
+	</div>
+	
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/615656de25797d7a8901b06a/1fgsk6l5j';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+	
 </body>
 </html>

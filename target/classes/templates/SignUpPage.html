@@ -9,102 +9,117 @@
 		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body style="background-color:#70828E">
 
-<div class="w3-top">
-	<div class="w3-bar w3-white w3-card" id="myNavbar">
+	<div class="w3-top">
+		<div class="w3-bar w3-card" id="myNavbar">
+		
+	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+	    	
+	    	<div class="w3-right w3-hide-small">
+		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/login}"><i class="fa fa-user"></i>Login</a>
+		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/signup}"><i class="fa fa-pencil"></i>Sign up</a>
+	    	</div>
+	    </div>
+	</div>
 	
-    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
-    	
-    	<div class="w3-right w3-hide-small">
-	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/login}"><i class="fa fa-user"></i>Login</a>
-	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/signup}"><i class="fa fa-pencil"></i>Sign up</a>
-    	</div>
-    </div>
-</div>
-
-<div  class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+	<div  class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+		
+		<h1>Create an account</h1>
+		
+		 <form action="#" th:action="@{/signup}" th:object="${account}" method="post">
+		 
+		 		<label for="type">
+		 			Account type: 
+			  		<select th:field="*{accountType}" class="w3-select" id="type">
+			            <option th:each="a: *{accountTypes}" th:value="${a}" th:text="${a}">
+			        </select>
+		 		</label>
+		  		
+		  		<br>
+		        
+		        <label for="firstName">
+		 			First Name:
+		 			<input type="text" class="w3-input w3-border" name="firstName" id="firstName"/>
+		 		</label>
+		        
+		        <br/> 
+		        
+		        <label for="lastName">
+		 			Last Name:
+		 			
+		 			<input type="text" class="w3-input w3-border" name="lastName" id="lastName"/>
+		 		</label>
+		        
+		        <br/>
+		        
+		        <label for="password">
+		 			Password:
+		 			<input type="password" class="w3-input w3-border" name="password" id="password"/>
+		 		</label>
+		 		
+		 		<br>
+		        
+		        <label for="email">
+		 			Email:
+		 			<input type="email" class="w3-input w3-border" name="email" id="email"/>
+		 		</label>
 	
-	<h1>Create an account</h1>
+		        <br/>    
+		        
+		        <label for="birthDate">
+		 			Birth date:
+		 			
+		 			<input type="date" name="birthDate"  id="birthDate"/>
+		 		</label>
+		        
+		        <br>
+		        
+		        <label for="province">
+		 			Province: 
+		        
+			        <select th:field="*{address.province}" class="w3-select" id="province">
+			            <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
+			        </select>
+		 		</label>
+		 		
+		        <br/>  
+		        
+		        <label for="city">
+		 			City:
+		 			<input type="text" class="w3-input w3-border" th:field="*{address.city}" id="city"/>
+		 		</label>
 	
-	 <form action="#" th:action="@{/signup}" th:object="${account}" method="post">
-	 
-	 		<label for="type">
-	 			Account type: 
-		  		<select th:field="*{accountType}" class="w3-select" id="type">
-		            <option th:each="a: *{accountTypes}" th:value="${a}" th:text="${a}">
-		        </select>
-	 		</label>
-	  		
-	  		<br>
-	        
-	        <label for="firstName">
-	 			First Name:
-	 			<input type="text" class="w3-input w3-border" name="firstName" id="firstName"/>
-	 		</label>
-	        
-	        <br/> 
-	        
-	        <label for="lastName">
-	 			Last Name:
-	 			
-	 			<input type="text" class="w3-input w3-border" name="lastName" id="lastName"/>
-	 		</label>
-	        
-	        <br/>
-	        
-	        <label for="password">
-	 			Password:
-	 			<input type="password" class="w3-input w3-border" name="password" id="password"/>
-	 		</label>
-	 		
-	 		<br>
-	        
-	        <label for="email">
-	 			Email:
-	 			<input type="email" class="w3-input w3-border" name="email" id="email"/>
-	 		</label>
-
-	        <br/>    
-	        
-	        <label for="birthDate">
-	 			Birth date:
-	 			
-	 			<input type="date" name="birthDate"  id="birthDate"/>
-	 		</label>
-	        
-	        <br>
-	        
-	        <label for="province">
-	 			Province: 
-	        
-		        <select th:field="*{address.province}" class="w3-select" id="province">
-		            <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
-		        </select>
-	 		</label>
-	 		
-	        <br/>  
-	        
-	        <label for="city">
-	 			City:
-	 			<input type="text" class="w3-input w3-border" th:field="*{address.city}" id="city"/>
-	 		</label>
-
-	        <br/>
-    
-	        <label for="postalCode">
-	 			Postal Code:<input type="text" class="w3-input w3-border" th:field="*{address.postalCode}" id="postalCode"/>
-	 		</label>
-	 		
-	        <br/>      
-	        
-	        <label for="address">
-	 			Street Address:<input type="text" class="w3-input w3-border" th:field="*{address.street}" id="address"/>
-	 		</label>
-
-	        <br/>   
-	    <input type="submit" value="Sign up" class="w3-button w3-black"/>
-    </form>
-</div>
+		        <br/>
+	    
+		        <label for="postalCode">
+		 			Postal Code:<input type="text" class="w3-input w3-border" th:field="*{address.postalCode}" id="postalCode"/>
+		 		</label>
+		 		
+		        <br/>      
+		        
+		        <label for="address">
+		 			Street Address:<input type="text" class="w3-input w3-border" th:field="*{address.street}" id="address"/>
+		 		</label>
+	
+		        <br/>   
+		    <input type="submit" value="Sign up" class="w3-button w3-black"/>
+	    </form>
+	</div>
+	
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/615656de25797d7a8901b06a/1fgsk6l5j';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+	
 </body>
 </html>
