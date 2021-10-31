@@ -36,6 +36,7 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 					//this should permit anyone as it is just a redirect 
 					//and will only be loaded after authentication
 					.antMatchers("/accountredirectpage").permitAll()
+					.antMatchers("/viewjobs").permitAll()
 					.antMatchers("/admin").hasRole("ADMIN")
 					
 					.antMatchers("/register", "/signup").permitAll()

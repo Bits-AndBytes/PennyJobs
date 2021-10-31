@@ -1,7 +1,7 @@
 
 --***STUDENT SAMPLE***
 INSERT INTO student (Rating, Bio)
- VALUES (8.5, 'Example');
+ VALUES (4, 'Example');
 
 INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type, Enabled, student_id) 
 --unencrypted password: password123
@@ -25,8 +25,8 @@ UPDATE parent SET account_id = (SELECT id FROM account WHERE parent_id = 1); --o
 INSERT INTO job_poster (account_id) values ((SELECT id FROM account WHERE poster_id = 1)); --this will initially be blank but needed to add a record with an id
 
 INSERT INTO account (Email, Password, First_Name, Last_Name, street, city, postal_Code, province, Birth_Date, Account_Type, Enabled, poster_id) 
---Unencrypted password: AdvancedPaSWord
-VALUES ('jeremylerkin@protonmail.com','$2a$10$CihMqn17jge8cAM8xQcszuICJaQqxna8ZoluFHRgNTvQSLUDvwiWm',
+--Unencrypted password: password
+VALUES ('jeremylerkin@protonmail.com','$2a$10$bPiCSfyZ.vS/TOB1inaLJe9KuXICWrcPFctnAO5h/NyUMBtMg7vTi',
 'Jeremy', 'Lerkin', '356 Oak Lane', 'Oakville', 'L6L 9B6','ON', '1952-03-24', 'J', 1, (SELECT id FROM job_poster WHERE id = 1));
 
 UPDATE job_poster SET account_id = (SELECT id FROM account WHERE poster_id = 1); --overwrite the blank account_id
