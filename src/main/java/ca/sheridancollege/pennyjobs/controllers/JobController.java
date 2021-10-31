@@ -249,6 +249,10 @@ public class JobController {
 					JobPoster poster = posterRepo.findByAccount(account);
 					model.addAttribute("jobposter", poster);
 				}
+				else if (account.getAccountType().equals("P")) {
+					Parent parent = parentRepo.findByAccount(account);
+					model.addAttribute("parent", parent);
+				}
 			}
 			model.addAttribute("isStudent", isStudent);
 		} else {

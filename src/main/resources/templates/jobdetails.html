@@ -28,6 +28,7 @@
 		<div th:if="${job.student != null}">
 			<div th:if="${job.getStudent != student  and job.proofSubmitted == false}" class="w3-red">This job is currently assigned to a student</div>
 			<div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">This job is currently assigned to you</div>
+			<div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">To contact the poster, have your parent log in</div>
 			<div th:if="${job.proofSubmitted == true}" class="w3-green">This job has been completed</div>
 			<div th:if="${job.studentPaid != true and job.proofSubmitted == true}" class="w3-red">The student has not been paid for this job</div>
 			<div th:if="${job.studentPaid == true and job.proofSubmitted == false}" class="w3-green">The student has been paid for this job</div>
@@ -45,6 +46,11 @@
 			
 			<h4>Would this be suitable for someone underage?</h4>
 			<div th:text="${job.underage}"></div>
+			
+			<div th:if="${parent != null and job.getStudent == parent.getStudent}">
+				<h3>Job poster's phone number:</h3>
+				<div th:text="${job.jobPoster.account.phoneNumber}"></div>
+			</div>
 			
 			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == null}" 
 			th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
