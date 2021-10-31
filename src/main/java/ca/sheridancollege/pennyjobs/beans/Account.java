@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,6 +43,8 @@ public class Account {
 	private String firstName;
 	
 	private String lastName;
+	
+	private String phoneNumber;
 	
 	@Embedded
 	private Address address;
