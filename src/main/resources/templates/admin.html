@@ -8,10 +8,19 @@
 			th:href="@{/css/w3.css}"
 		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("../images/adminHomepage.jpg");
+  min-height: 75%;
+}
+</style>
 </head>
 <body>
+
 	<div class="w3-top">
-		<div class="w3-bar w3-white w3-card" id="myNavbar">
+		<div class="w3-bar w3-card" id="myNavbar">
 		
 	    	<a th:href="@{/admin}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
@@ -23,9 +32,13 @@
 	    	</div>
 	    </div>
 	</div>
-	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+	
+	<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+	<div class="w3-text-white w3-display-container w3-grayscale-min w3-left w3-display-bottomleft" style="padding:40px">
 		<h1>Hello, <span th:text="${name}"></span></h1>
-		<div>Role: Admin</div>
+		<div>Administrator</div>
 	</div>
+	</header>
+	
 </body>
 </html>

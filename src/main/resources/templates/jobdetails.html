@@ -10,8 +10,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
 	<div class="w3-top">
-		<div class="w3-bar w3-white w3-card" id="myNavbar">
+		<div class="w3-bar w3-card" id="myNavbar">
 		
 	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
@@ -21,18 +22,19 @@
 	    </div>
 	</div>
 	
-	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
-		<a th:href="@{/jobs}"><i class="fa fa-arrow-left"></i>Back</a>
-		<h1 th:text="${job.title}"></h1>
-		
-		<div th:if="${job.student != null}">
-			<div th:if="${job.getStudent != student  and job.proofSubmitted == false}" class="w3-red">This job is currently assigned to a student</div>
-			<div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">This job is currently assigned to you</div>
-			<div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">To contact the poster, have your parent log in</div>
-			<div th:if="${job.proofSubmitted == true}" class="w3-green">This job has been completed</div>
-			<div th:if="${job.studentPaid != true and job.proofSubmitted == true}" class="w3-red">The student has not been paid for this job</div>
-			<div th:if="${job.studentPaid == true and job.proofSubmitted == false}" class="w3-green">The student has been paid for this job</div>
-		</div>
+	<div style="height:100%; background-color:#00CED1">
+		<div class="w3-white w3-display-container w3-grayscale-min w3-center w3-display-middle" style="padding:2em">
+			<a th:href="@{/jobs}"><i class="fa fa-arrow-left"></i>Back</a>
+			<h1 th:text="${job.title}"></h1>
+			
+			<div th:if="${job.student != null}">
+				<div th:if="${job.getStudent != student  and job.proofSubmitted == false}" class="w3-red">This job is currently assigned to a student</div>
+				<div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">This job is currently assigned to you</div>
+        <div th:if="${job.getStudent == student and job.proofSubmitted == false}" class="w3-black">To contact the poster, have your parent log in</div>
+				<div th:if="${job.proofSubmitted == true}" class="w3-green">This job has been completed</div>
+				<div th:if="${job.studentPaid != true and job.proofSubmitted == true}" class="w3-red">The student has not been paid for this job</div>
+				<div th:if="${job.studentPaid == true and job.proofSubmitted == false}" class="w3-green">The student has been paid for this job</div>
+			</div>
 		
 		<div>
 			<h3>Description: </h3>
@@ -55,22 +57,53 @@
 			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == null}" 
 			th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
 			
-			<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == student and job.proofSubmitted != true}" 
-			th:href="@{/jobs/{jobid}/proof(jobid=${job.id})}">Submit proof of job completion</a>
+			<div>
+				<h3>Description: </h3>
+				<div th:text="${job.description}"></div>
+				
+				<h3>Price:</h3>
+				<div th:text="'$' + ${job.price}"></div>
+				
+				<h3>Posted by:</h3>
+				<div th:text="${job.jobPoster.account.firstName}"></div>
+				
+				<h4>Would this be suitable for someone underage?</h4>
+				<div th:text="${job.underage}"></div>
+				
+				<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == null}" 
+				th:href="@{/assign/{jobid}(jobid=${job.id})}">Apply for this job</a>
+				
+				<a class="w3-button w3-black" th:if="${isStudent == true and job.getStudent == student and job.proofSubmitted != true}" 
+				th:href="@{/jobs/{jobid}/proof(jobid=${job.id})}">Submit proof of job completion</a>
+				
+				<form action="#" th:action="@{/paystudent}" method="post">
+				
+					<input type="hidden" name="jobId" th:value="${job.id}">
+					<input type="submit" class="w3-button w3-black" 
+					th:if="${job.getJobPoster == jobposter and job.proofSubmitted == true and job.studentPaid != true}" 
+					value="Pay student for this job"></input>
+				</form>
+			</div>
 			
-			<form action="#" th:action="@{/paystudent}" method="post">
-			
-				<input type="hidden" name="jobId" th:value="${job.id}">
-				<input type="submit" class="w3-button w3-black" 
-				th:if="${job.getJobPoster == jobposter and job.proofSubmitted == true and job.studentPaid != true}" 
-				value="Pay student for this job"></input>
-			</form>
-		</div>
-		
-		<div>
-		
-		<img th:src="${image}">
+			<div>			
+				<img th:src="${image}">
+			</div>
 		</div>
 	</div>
+	
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/615656de25797d7a8901b06a/1fgsk6l5j';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+	
 </body>
 </html>

@@ -8,32 +8,41 @@
 			th:href="@{/css/w3.css}"
 		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+<style>
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("../images/parentHomepage.jpg");
+  min-height: 75%;
+}
+</style>
 </head>
 <body>
 
-<div class="w3-top">
-		<div class="w3-bar w3-white w3-card" id="myNavbar">
-		
+	<div class="w3-top">
+		<div class="w3-bar w3-card" id="myNavbar">		
 	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
 	    	
 	    	<div class="w3-right w3-hide-small">
-	    		<a class="w3-bar-item w3-button w3-wide" th:href="@{/jobs}"><i class="fa fa-search"></i>Browse Jobs</a>
-	    		<a class="w3-bar-item w3-button w3-wide" th:href="@{/parent/studentjobs}"><i class="fa fa-child"></i>Child's jobs</a>
-	    		<a class="w3-bar-item w3-button w3-wide"><i class="fa fa-comments-o"></i>Live Chat</a>
-		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
+	    		<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
 	    	</div>
 	    </div>
 	</div>
 	
-	<div class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
+	<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+		<div class="w3-text-white w3-display-container w3-grayscale-min w3-left w3-display-bottomleft" style="padding:40px">
+			<h1>Hello, <span th:text="${name}"></span></h1>
+			<div>Parent</div>
+		</div>
+	</header>
+	
+	<div class="w3-display-container w3-grayscale-min w3-center" 
+	style="padding:60px 16px; position:absolute; left:50%; transform:translate(-50%, 0%)">
 		<div th:if="${message != null}">
 			<div class="alert w3-grey">
 				<span th:text="${message}"></span>
 			</div>
 		</div>
-		<h1>Hello, <span th:text="${name}"></span></h1>
-		<div>Role: Parent</div>
 		
 		<form action="#" th:action="@{/requestlink}" method="post" th:if="${parent.student == null}">
 			<div>Do you want to connect your account with your child's? Please enter their email!</div>
@@ -43,6 +52,30 @@
 		 	</label>
 		 	<input type="submit" value="Submit" class="w3-button w3-black"/>
 		</form>
+		
+		<div class="w3-row-padding w3-center">
+			<div class="w3-half w3-border" style="padding: 2em 4em">
+	    		<a class="w3-bar-item w3-button w3-wide"th:href="@{/jobs}"><i class="fa fa-search"></i>Browse Jobs</a>
+			</div>
+			<div class="w3-half w3-border" style="padding: 2em 4em">
+		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/parent/studentjobs}"><i class="fa fa-child"></i>Child's jobs</a>
+	    	</div>
+		</div>
 	 </div>
+	
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/615656de25797d7a8901b06a/1fgsk6l5j';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+	
 </body>
 </html>
