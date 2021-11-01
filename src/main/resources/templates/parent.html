@@ -9,11 +9,17 @@
 		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+body{
+	background-color: #5D76A9;
+}
 .bgimg-1 {
   background-position: center;
   background-size: cover;
   background-image: url("../images/parentHomepage.jpg");
-  min-height: 75%;
+  min-height: 60%;
+}
+.home-buttons{
+	color: white
 }
 </style>
 </head>
@@ -45,21 +51,21 @@
 		</div>
 		
 		<form action="#" th:action="@{/requestlink}" method="post" th:if="${parent.student == null}">
-			<div>Do you want to connect your account with your child's? Please enter their email!</div>
+			<div style="padding-bottom: 2em; color: white">Do you want to connect your account with your child's? Please enter their email!</div>
 			<input type="hidden" name="parentId" th:value="${parent.id}">
 			<label for="email">
 		 		<input type="email" class="w3-input w3-border" name="email" id="email" required/>
 		 	</label>
-		 	<input type="submit" value="Submit" class="w3-button w3-black"/>
+		 	<input type="submit" value="Submit" class="w3-button w3-black" style="margin: 2em 0em"/>
 		</form>
 		
 		<div class="w3-row-padding w3-center">
-			<div class="w3-half w3-border" style="padding: 2em 4em">
-	    		<a class="w3-bar-item w3-button w3-wide"th:href="@{/jobs}"><i class="fa fa-search"></i>Browse Jobs</a>
-			</div>
-			<div class="w3-half w3-border" style="padding: 2em 4em">
-		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/parent/studentjobs}"><i class="fa fa-child"></i>Child's jobs</a>
-	    	</div>
+			<a class="w3-half w3-border w3-button home-buttons" th:href="@{/jobs}" style="padding: 2em 4em">
+	    		<i class="fa fa-search"></i>Browse Jobs
+			</a>
+			<a class="w3-half w3-border w3-button home-buttons" th:href="@{/parent/studentjobs}" style="padding: 2em 4em">
+		    	<i class="fa fa-child"></i>Child's jobs
+	    	</a>
 		</div>
 	 </div>
 	

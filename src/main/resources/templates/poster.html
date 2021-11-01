@@ -9,11 +9,17 @@
 		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+body{
+	background-color: #5D76A9;
+}
 .bgimg-1 {
   background-position: center;
   background-size: cover;
   background-image: url("../images/posterHomepage.jpg");
-  min-height: 75%;
+  min-height: 45%;
+}
+.home-buttons{
+	color: white
 }
 </style>
 </head>
@@ -40,12 +46,12 @@
 	<div class="w3-display-container w3-grayscale-min w3-center" 
 	style="padding:60px 16px; position:absolute; left:50%; transform:translate(-50%, 0%)">
 		<div class="w3-row-padding w3-center">
-			<div class="w3-half w3-border" style="padding: 2em 7em">
-	    		<a class="w3-bar-item w3-button w3-wide"th:href="@{/jobs}"><i class="fa fa-search"></i>Browse Jobs</a>
-			</div>
-			<div class="w3-half w3-border" style="padding: 2em 7em">
-		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/jobpost}"><i class="fa fa-pencil"></i>Post a job</a>
-			</div>
+			<a class="w3-half w3-border w3-button home-buttons" th:href="@{/jobs}" style="padding: 2em 7em">
+	    		<i class="fa fa-search"></i>Browse Jobs
+			</a>
+			<a class="w3-half w3-border w3-button home-buttons" th:href="@{/jobpost}" style="padding: 2em 7em">
+		    	<i class="fa fa-pencil"></i>Post a job
+			</a>
 		</div>
 		
 		<table class="w3-table-all" style="margin-top:4em" th:if="${jobs != null}">
