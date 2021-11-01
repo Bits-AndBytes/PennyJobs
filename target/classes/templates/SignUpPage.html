@@ -13,68 +13,87 @@
 
 	<div class="w3-top">
 		<div class="w3-bar w3-card" id="myNavbar">
-		
-	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
-	    	
-	    	<div class="w3-right w3-hide-small">
-		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/login}"><i class="fa fa-user"></i>Login</a>
-		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/signup}"><i class="fa fa-pencil"></i>Sign up</a>
-	    	</div>
-	    </div>
-	</div>
 	
-	<div  class="w3-display-container w3-grayscale-min w3-center w3-display-middle">
-		
-		<h1>Create an account</h1>
-		
-		 <form action="#" th:action="@{/signup}" th:object="${account}" method="post">
-		 
+    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+    	
+    	<div class="w3-right w3-hide-small">
+	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/login}"><i class="fa fa-user"></i>Login</a>
+	    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/signup}"><i class="fa fa-pencil"></i>Sign up</a>
+    	</div>
+    </div>
+</div>
+
+<div class="w3-container">
+	
+	<h1 class="w3-center" style="padding-top: 2em">Create an account</h1>
+	
+	<div class="w3-row-padding w3-center">
+		<form action="#" th:action="@{/signup}" th:object="${account}" method="post">
+	 
+	 	<div class="w3-half" style="padding: 2em 7em">
+	 
+		 	<div style="padding-bottom: 2em">
 		 		<label for="type">
 		 			Account type: 
 			  		<select th:field="*{accountType}" class="w3-select" id="type">
 			            <option th:each="a: *{accountTypes}" th:value="${a}" th:text="${a}">
 			        </select>
 		 		</label>
-		  		
-		  		<br>
+		 	</div>
+		 		
+		     <div style="padding-bottom: 2em">
+		        <label for="email">
+		 			Email:
+		 			<input type="email" class="w3-input w3-border" name="email" id="email" required/>
+		 		</label>
+		 	</div>
 		        
+		    <div style="padding-bottom: 2em">
+		        <label for="password">
+		 			Password:
+		 			<input type="password" class="w3-input w3-border" name="password" id="password" required/>
+		 		</label>
+		 	</div>
+		     
+		     <div style="padding-bottom: 2em">
 		        <label for="firstName">
 		 			First Name:
-		 			<input type="text" class="w3-input w3-border" name="firstName" id="firstName"/>
+		 			<input type="text" class="w3-input w3-border" name="firstName" id="firstName" required/>
 		 		</label>
+		 	</div>
+		 	
 		        
-		        <br/> 
-		        
+		     <div style="padding-bottom: 2em">
 		        <label for="lastName">
 		 			Last Name:
 		 			
 		 			<input type="text" class="w3-input w3-border" name="lastName" id="lastName"/>
 		 		</label>
-		        
-		        <br/>
-		        
-		        <label for="password">
-		 			Password:
-		 			<input type="password" class="w3-input w3-border" name="password" id="password"/>
+		 	</div>
+		 	
+		 	<div style="padding-bottom: 2em">
+		        <label for="phone-number">
+		 			Phone number (ex. 000-000-0000):
+		 			<input type="tel" class="w3-input w3-border" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+		 				name="phoneNumber" id="phoneNumber" required/>
 		 		</label>
-		 		
-		 		<br>
-		        
-		        <label for="email">
-		 			Email:
-		 			<input type="email" class="w3-input w3-border" name="email" id="email"/>
-		 		</label>
-	
-		        <br/>    
-		        
+		 	</div>
+	 		
+	 	</div>
+	 		
+	 	<div class="w3-half" style="padding: 2em 7em">
+
+	         
+	    	<div style="padding-bottom: 2.7em">
 		        <label for="birthDate">
 		 			Birth date:
 		 			
 		 			<input type="date" name="birthDate"  id="birthDate"/>
 		 		</label>
-		        
-		        <br>
-		        
+		 	</div>
+	        
+	       
+	        <div style="padding-bottom: 2.7em">
 		        <label for="province">
 		 			Province: 
 		        
@@ -82,32 +101,36 @@
 			            <option th:each="p: *{address.provinces}" th:value="${p}" th:text="${p}">
 			        </select>
 		 		</label>
-		 		
-		        <br/>  
-		        
+	 		</div>
+	 		
+	 		
+	        <div style="padding-bottom: 2.7em">
 		        <label for="city">
 		 			City:
 		 			<input type="text" class="w3-input w3-border" th:field="*{address.city}" id="city"/>
 		 		</label>
-	
-		        <br/>
-	    
+	 		</div>
+
+	        <div style="padding-bottom: 2.7em">
 		        <label for="postalCode">
 		 			Postal Code:<input type="text" class="w3-input w3-border" th:field="*{address.postalCode}" id="postalCode"/>
 		 		</label>
-		 		
-		        <br/>      
-		        
+	 		</div>
+	             
+	        <div style="padding-bottom: 2.7em">
 		        <label for="address">
 		 			Street Address:<input type="text" class="w3-input w3-border" th:field="*{address.street}" id="address"/>
 		 		</label>
-	
-		        <br/>   
-		    <input type="submit" value="Sign up" class="w3-button w3-black"/>
-	    </form>
+	 		</div>
+	 		
+	 		<div>
+	 			<input type="submit" value="Sign up" class="w3-button w3-black"/>
+	 		</div>
+	 	</div>
+    	</form>
 	</div>
-	
-	<!--Start of Tawk.to Script-->
+</div>
+  <!--Start of Tawk.to Script-->
 	<script type="text/javascript">
 	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
 	(function(){
@@ -120,6 +143,5 @@
 	})();
 	</script>
 	<!--End of Tawk.to Script-->
-	
 </body>
 </html>
