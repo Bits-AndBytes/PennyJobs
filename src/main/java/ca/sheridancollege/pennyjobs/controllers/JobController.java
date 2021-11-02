@@ -218,6 +218,18 @@ public class JobController {
 		case "Description":
 			results = jRepo.findAllByDescriptionIgnoreCaseContains(query);
 			break;
+		case "City":
+			List<Job> allJobs = (List<Job>) jRepo.findAll();
+			for (Job job : allJobs) {
+				String city = job.getAddress().getCity().toUpperCase();
+				if (city.contains(query.toUpperCase())) {
+					results.add(job);
+				}
+			}
+			//If no query was searched, return all jobs
+			if (query.isEmpty()) {
+				results = allJobs;
+			}
 		}
 		model.addAttribute("jobs", results);
 		

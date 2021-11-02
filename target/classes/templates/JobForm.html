@@ -30,7 +30,7 @@
 		 	
 			 	<label for="title">
 			 		Job title:
-			 		<input type="text" class="w3-input w3-border" name="title" id="title"/>
+			 		<input type="text" class="w3-input w3-border" name="title" id="title" required/>
 			 	</label>
 			 	
 			 	<br>
@@ -60,21 +60,23 @@
 			 	
 			 	<label for="city">
 			 		City:
-			 		<input type="text" class="w3-input w3-border" th:field="*{address.city}" id="city"/>
+			 		<input type="text" class="w3-input w3-border" th:field="*{address.city}" id="city" required/>
 			 	</label>
 			 	
 			 	<br>
 			 	
 			 	<label for="postalCode">
 			 		Postal code:
-			 		<input type="text" class="w3-input w3-border" th:field="*{address.postalCode}" id="postalcode"/>
+			 		<input type="text" class="w3-input w3-border" th:field="*{address.postalCode}" 
+			 		id="postalcode" placeholder="Optional"/>
 			 	</label>
 			 	
 			 	<br>
 			 	
 			 	<label for="address">
 			 		Street address:
-			 		<input type="text" class="w3-input w3-border" th:field="*{address.street}" id="address"/>
+			 		<input type="text" class="w3-input w3-border" th:field="*{address.street}" 
+			 		id="address" placeholder="Optional"/>
 			 	</label>
 			 	
 			 	<br>

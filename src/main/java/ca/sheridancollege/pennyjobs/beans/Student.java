@@ -1,5 +1,8 @@
 package ca.sheridancollege.pennyjobs.beans;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,4 +42,12 @@ public class Student {
 	
 	@Column(nullable=true)
 	private Integer requestedToLink;
+	
+	public int getAge() {
+		
+		Date birthday = account.getBirthDate();
+		//1900 is added as Date.getYear returns the year - 1900
+		int age = LocalDate.now().getYear() - (birthday.getYear() + 1900);
+		return age;
+	}
 }
