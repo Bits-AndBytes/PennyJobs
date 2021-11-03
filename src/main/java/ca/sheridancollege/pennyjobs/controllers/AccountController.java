@@ -1,6 +1,7 @@
 package ca.sheridancollege.pennyjobs.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -11,15 +12,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.sheridancollege.pennyjobs.beans.Account;
+import ca.sheridancollege.pennyjobs.beans.Job;
 import ca.sheridancollege.pennyjobs.beans.JobPoster;
 import ca.sheridancollege.pennyjobs.beans.Parent;
 import ca.sheridancollege.pennyjobs.beans.Student;
 import ca.sheridancollege.pennyjobs.repositories.AccountRepository;
 import ca.sheridancollege.pennyjobs.repositories.JobPosterRepository;
+import ca.sheridancollege.pennyjobs.repositories.JobRepository;
 import ca.sheridancollege.pennyjobs.repositories.ParentRepository;
 import ca.sheridancollege.pennyjobs.repositories.RoleRepository;
 import ca.sheridancollege.pennyjobs.repositories.StudentRepository;
@@ -48,6 +52,9 @@ public class AccountController {
 	
 	@Autowired
 	private RoleRepository roleRepo;
+	
+	@Autowired
+	private JobRepository jobRepo;
 	
 	/**
 	 * It is a method to encrypt and SALT passwords to be stored in the database
@@ -387,6 +394,78 @@ public class AccountController {
 		studentRepo.save(student);
 		
 		return "redirect:/";
+	}
+	
+	@GetMapping("/admin/accountmanager")
+	public String loadAccountManager(Model model) {
+		
+		ArrayList<Account> accounts = (ArrayList<Account>) accountRepo.findAll();
+		
+		model.addAttribute("accounts", accounts);
+		
+		return "accountmanager.html";
+	}
+	
+	@GetMapping("/admin/deleteaccount/{id}")
+	public String deleteAccount(@PathVariable int id, Model model, Authentication auth) {
+		
+		Account account = accountRepo.findById(id).get();
+		switch(account.getAccountType()) {
+		case "S":
+			Student student = account.getStudent();
+			account.setStudent(null);
+			
+			if (student != null) {
+				List<Job> jobs = jobRepo.findByStudentId(student.getId());
+				
+				for (Job job: jobs) {
+					job.setStudent(null);
+					jobRepo.save(job);
+				}
+				
+				if (student.getParent() != null) {
+					student.getParent().setStudent(null);
+					student.setParent(null);
+				}
+				studentRepo.save(student);
+				studentRepo.delete(student);
+			}
+			account.setRoles(null);
+			accountRepo.save(account);
+			accountRepo.delete(account);
+		break;
+		
+		case "P":
+			Parent parent = account.getParent();
+			account.setParent(null);
+			
+			
+			parentRepo.delete(parent);
+			account.setRoles(null);
+			accountRepo.save(account);
+			accountRepo.delete(account);
+		break;
+		
+		case "J":
+			JobPoster poster = account.getPoster();
+			account.setPoster(null);
+			
+			List<Job> jobs = jobRepo.findByJobPosterId(poster.getId());
+			
+			for (Job job: jobs) {
+				jobRepo.delete(job);
+			}
+			
+			posterRepo.save(poster);
+			posterRepo.delete(poster);
+			account.setRoles(null);
+			accountRepo.save(account);
+			accountRepo.delete(account);
+		break;
+			
+		}
+		
+		return "redirect:/admin/accountmanager";
 	}
 	
 }

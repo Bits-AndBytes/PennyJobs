@@ -58,13 +58,13 @@ public class Account {
 	private String[] accountTypes = {"Student","Parent","Poster"};
 	
 	
-	  @OneToOne(cascade=CascadeType.ALL) 
+	  @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER) 
 	  private Student student;
 	  
-	  @OneToOne(cascade=CascadeType.ALL) 
+	  @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER) 
 	  private Parent parent;
 	  
-	  @OneToOne(cascade=CascadeType.ALL)  
+	  @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)  
 	  private JobPoster poster;
 
 

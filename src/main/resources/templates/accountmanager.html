@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage accounts</title>
+<link rel="stylesheet" type="text/css" media="all" 
+			href="../static/css/w3.css"
+			th:href="@{/css/w3.css}"
+		/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+	<div class="w3-top">
+		<div class="w3-bar w3-card" id="myNavbar">		
+	    	<a th:href="@{/}" class="w3-bar-item w3-button w3-wide">PennyJobs</a>
+	    	
+	    	<div class="w3-right w3-hide-small">
+		    	<a class="w3-bar-item w3-button w3-wide" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
+	    	</div>
+	    </div>
+	</div>
+	
+	<div style="height:100%; background-color:#00CED1">
+		<div class="w3-display-container w3-grayscale-min w3-center" style="padding: 15em; background-color: #5D76A9">
+			
+			<table class="w3-table-all" th:if="${accounts != null}">
+				<tr>
+					<th>ID</th>
+					<th>Email</th>
+					<th>First name</th>
+					<th>Last name</th>
+					<th>Account type</th>
+				</tr>					
+				<tr th:each="a : ${accounts}">
+					<td th:text="${a.id}"></td>
+					<td th:text="${a.email}"></td>
+					<td th:text="${a.firstName}"></td>
+					<td th:text="${a.lastName}"></td>
+					<td th:text="${a.accountType}"></td>
+					<td><a th:href="@{/admin/deleteaccount/{accountid}(accountid=${a.id})}">DELETE</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+	<!--Start of Tawk.to Script-->
+	<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/615656de25797d7a8901b06a/1fgsk6l5j';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
+	
+</body>
+</html>

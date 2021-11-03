@@ -38,6 +38,7 @@ public class SecurityCheck extends WebSecurityConfigurerAdapter{
 					.antMatchers("/accountredirectpage").permitAll()
 					.antMatchers("/viewjobs").permitAll()
 					.antMatchers("/admin").hasRole("ADMIN")
+					.antMatchers("/admin/**").hasRole("ADMIN")
 					
 					.antMatchers("/register", "/signup").permitAll()
 					.antMatchers(HttpMethod.POST, "/register").permitAll()

@@ -9,11 +9,17 @@
 		/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+body{
+	background-color: #5D76A9;
+}
 .bgimg-1 {
   background-position: center;
   background-size: cover;
   background-image: url("../images/adminHomepage.jpg");
   min-height: 75%;
+}
+.home-buttons{
+	color: white
 }
 </style>
 </head>
@@ -40,5 +46,13 @@
 	</div>
 	</header>
 	
+	<div class="w3-row-padding w3-center" style="margin-top: 2em">
+		<a class="w3-half w3-border w3-button home-buttons" th:href="@{/admin/accountmanager}" style="padding: 2em 7em">
+	   		<i class="fa fa-pencil"></i>Account manager
+		</a>
+		<a class="w3-half w3-border w3-button home-buttons" th:href="@{/jobs}" style="padding: 2em 7em">
+	    	<i class="fa fa-search"></i>Browse Jobs
+		</a>
+	</div>
 </body>
 </html>
